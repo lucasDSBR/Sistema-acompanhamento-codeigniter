@@ -1,3 +1,18 @@
+<?php
+
+    // A sessão precisa ser iniciada em cada página diferente
+    if (!isset($_SESSION)) session_start();
+
+    $nivel_necessario = 1;
+
+    // Verifica se não há a variável da sessão que identifica o usuário
+    if (isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] >= 1)) {
+        // Redireciona o visitante de volta pro login
+        header("Location: dashboard"); 
+        exit;
+    }
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,8 +138,8 @@
         <div class="formulario-corpo">
             <h1>Entrar</h1>
             <div class="formulario-input">
-                <label for="usuario">Usuario</label>
-                <input type="text" name="usuario" id="usuario" class="usuario"/>
+                <label for="cpf">CPF</label>
+                <input type="text" name="cpf" id="cpf" class="usuario"/>
             </div>
             <div class="formulario-input">
                 <label for="password">Senha</label>

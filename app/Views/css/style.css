@@ -1,0 +1,106 @@
+body {
+    font-family: "Nunito", Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+.formulario{
+    margin-top: 80px;
+    display: grid;
+    flex-wrap: wrap;
+    justify-items: center;
+}
+.formulario-corpo{
+    background: #2342;
+    padding: 20px;
+}
+.formulario-input {
+    margin-bottom: 10px;
+}
+.formulario-input{
+    display: grid;
+    grid-template-rows: 1fr
+}
+.formulario-input .usuario {
+    height: 40px;
+    width: 300px;
+}
+.formulario-input .password {
+    height: 40px;
+    width: 300px;
+}
+
+.formulario-input .usuario:focus {
+    outline-width: 0;
+}
+.formulario-input .password:focus {
+    outline-width: 0;
+}
+.formulario-input .btnEntrar {
+    height: 40px;
+    width: auto;
+    background: #009E98DB;
+    border: none;
+    color: #ffff;
+    font-weight: bold;
+    cursor: pointer;
+}
+.formulario-corpo h1 {
+    text-align: center;
+}
+
+/* Restrido */
+
+.header h2 {
+    margin: 0;
+    padding: 0;
+}
+.header {
+    color:#fff;
+    padding: 20px;
+    background-color: #009E98DB;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-sair {
+    text-decoration: none;
+    color: #fff;
+    padding: 20px;
+}
+
+.acompanhamento-corpo {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: 1fr
+}
+.acompanhamento-header-submeter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btnEnviarFile{
+    height: 30px;
+    width: 100px;
+    width: auto;
+    background: #009E98DB;
+    border: none;
+    color: #ffff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #efefef;
+  }

@@ -6,7 +6,7 @@
     $nivel_necessario = 1;
 
     // Verifica se não há a variável da sessão que identifica o usuário
-    if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] < $nivel_necessario)) {
+    if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] < 1)) {
         // Destrói a sessão por segurança
         session_destroy();
         // Redireciona o visitante de volta pro login
@@ -20,7 +20,7 @@
 <head>
 <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Login</title>
+    <title>Dashboard</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' href='./css/style.css'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,11 +32,16 @@
 			margin: 0;
 		}
 		.formulario{
-			margin-top: 80px;
+			margin-top: 4px;
 			display: grid;
 			flex-wrap: wrap;
 			justify-items: center;
 		}
+        .menu{
+            display: flex;
+			flex-wrap: wrap;
+			justify-items: center;
+        }
 		.formulario-corpo{
 			background: #2342;
 			padding: 20px;
@@ -138,24 +143,25 @@
 <body>
     <div class="header">
         <h2>Acompanhamento TradUnilab</h2>
-        <a href="./logout.php" class="header-sair">Sair</a>
+        <div class="menu">
+            <p>Olá, <?php echo $_SESSION['UsuarioNome']; ?>!</p>
+            <p><a href="./logout" class="header-sair">Sair</a></p>
+        </div>
+        
     </div>
     <div class="acompanhamento-corpo">
-        <div class="acompanhamento-corpo-header">
-            <p>Olá, <?php echo $_SESSION['UsuarioNome']; ?>!</p>
-            
-        </div>
         <div class="acompanhamento-header-submeter">
             <h4>Arquivos enviados:</h4>
             <div>
                 <span>Deseja enviar um arquivo para análise ?</span>
-                <button class="btnEnviarFile">Enviar</button>
+                <a href="uploadArquive">Enviar</a>
             </div> 
         </div>
         <div class="acompanhamento-corpo-corpo">
             <table>
                     <tr>
                         <th>Usuario envio</th>
+						<th>Número da solicitação</th>
                         <th>Situação</th>
                         <th>Arquivo</th>
                         <th>Resultado</th>
@@ -163,10 +169,11 @@
                     <?php
                         foreach ($_SESSION['Acompanhamentos'] as $item) {
                             echo '<tr>
-                            <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioID'] ? "Você" : "Indefinido").'</td>
-                            <td>'.($item['pedente'] == 0 ? "Pendente" : "Ok").'</td>
-                            <td><a href="'.$item['arquivo'].'">Baixar</a></td>
-                            <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./uploadResult/'.$item['id'].'">Enviar Resultado</a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./arquives/'.$item['resultado'].'">Baixar</a> | <a href="'.$item['resultado'].'">Cancelar</a>' : '<a href="'.$item['resultado'].'">Baixar</a>')).'</td>
+                            <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? "Você" : "Indefinido").'</td>
+							<td>'.$item['id'].'</td>
+                            <td>'.($item['status'] == 0 ? "Submetido" : ($item['status'] == 1 ?  "Em análise pelos modelos de Inteligência Artificial": ($item['status'] == 2 ? "Em análise pelo(s) colaborador(es)" : ($item['status'] == 3 ? "Concluido" : " ---")))).'</td>
+                            <td><a href="/arquivoParaAnalise/'.$item['arquivo'].'.pdf">Baixar</a></td>
+                            <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="uploadResult/'.$item['id'].'">Enviar Resultado</a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./resultados/'.$item['resultado'].'.pdf">Baixar</a> | <a href="'.$item['resultado'].'">Cancelar</a>' : '<a href="./resultados/'.$item['resultado'].'.pdf">Baixar</a>')).'</td>
                             </tr>';
                         }
                     ?>

@@ -31,10 +31,21 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('/dashboard', 'Home::dashboard');
-$routes->post('/validLogin', 'Login::validLogin');
-$routes->get('/uploadResult/(:any)', 'Upload::uploadPage');
+    $routes->get('/', 'Home::index');
+    $routes->get('/register', 'Register::index');
+    $routes->post('/register', 'Register::registerUser');
+    $routes->get('/dashboard', 'Home::dashboard');
+    $routes->post('/validLogin', 'Login::validLogin');
+    $routes->get('/uploadResult/(:segment)', 'Upload::uploadResult/$1');
+    $routes->get('/cancelUploadResult/(:segment)', 'Upload::cancelUploadResult/$1');
+    $routes->post('uploadResult', 'Upload::to_uploadResult');
+    $routes->get('/uploadArquive', 'Upload::uploadArquive');
+    $routes->post('/uploadArquive', 'Upload::to_uploadArquive');
+    $routes->get('/aprovar', 'Aprovar::aprovar');
+    $routes->get('/detalhesUserId/(:segment)', 'Aprovar::detalhesUser/$1');
+    $routes->get('/aprovarUser/(:segment)', 'Aprovar::aprovarUser/$1');
+    $routes->get('/logout', 'Home::logout');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

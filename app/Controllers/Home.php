@@ -12,4 +12,8 @@ class Home extends BaseController
     {
         return view('dashboard');
     }
+    public function logout()
+    {
+        return view('logout');
+    }
 }

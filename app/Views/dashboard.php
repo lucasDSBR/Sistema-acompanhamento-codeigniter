@@ -6,7 +6,7 @@
     $nivel_necessario = 1;
 
     // Verifica se não há a variável da sessão que identifica o usuário
-    if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] < $nivel_necessario)) {
+    if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] < 1)) {
         // Destrói a sessão por segurança
         session_destroy();
         // Redireciona o visitante de volta pro login
@@ -20,157 +20,66 @@
 <head>
 <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Login</title>
+    <title>Dashboard</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' href='./css/style.css'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-	<style type="text/css">
-		body {
-			font-family: "Nunito", Helvetica, Arial, sans-serif;
-			margin: 0;
-		}
-		.formulario{
-			margin-top: 80px;
-			display: grid;
-			flex-wrap: wrap;
-			justify-items: center;
-		}
-		.formulario-corpo{
-			background: #2342;
-			padding: 20px;
-		}
-		.formulario-input {
-			margin-bottom: 10px;
-		}
-		.formulario-input{
-			display: grid;
-			grid-template-rows: 1fr
-		}
-		.formulario-input .usuario {
-			height: 40px;
-			width: 300px;
-		}
-		.formulario-input .password {
-			height: 40px;
-			width: 300px;
-		}
-
-		.formulario-input .usuario:focus {
-			outline-width: 0;
-		}
-		.formulario-input .password:focus {
-			outline-width: 0;
-		}
-		.formulario-input .btnEntrar {
-			height: 40px;
-			width: auto;
-			background: #009E98DB;
-			border: none;
-			color: #ffff;
-			font-weight: bold;
-			cursor: pointer;
-		}
-		.formulario-corpo h1 {
-			text-align: center;
-		}
-
-		/* Restrido */
-
-		.header h2 {
-			margin: 0;
-			padding: 0;
-		}
-		.header {
-			color:#fff;
-			padding: 20px;
-			background-color: #009E98DB;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.header-sair {
-			text-decoration: none;
-			color: #fff;
-			padding: 20px;
-		}
-
-		.acompanhamento-corpo {
-			max-width: 960px;
-			margin: 0 auto;
-			display: grid;
-			grid-template-rows: 1fr
-		}
-		.acompanhamento-header-submeter {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.btnEnviarFile{
-			height: 30px;
-			width: 100px;
-			width: auto;
-			background: #009E98DB;
-			border: none;
-			color: #ffff;
-			cursor: pointer;
-			border-radius: 4px;
-		}
-
-		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
-			width: 100%;
-		}
-		
-		td, th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-		
-		tr:nth-child(even) {
-			background-color: #efefef;
-		}
-	</style>
 </head>
 <body>
     <div class="header">
         <h2>Acompanhamento TradUnilab</h2>
-        <a href="./logout.php" class="header-sair">Sair</a>
+        <div class="menu">
+            <p><?php echo $_SESSION['UsuarioNome']; ?></p>
+			<p><a href="/dashboard" class="header-sair">Inicio</a></p>
+			<p><?php if($_SESSION['UsuarioNivel'] == 1) echo "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>"; ?></p>
+            <p><a href="/logout" class="header-sair">Sair</a></p>
+        </div>
     </div>
     <div class="acompanhamento-corpo">
-        <div class="acompanhamento-corpo-header">
-            <p>Olá, <?php echo $_SESSION['UsuarioNome']; ?>!</p>
-            
-        </div>
         <div class="acompanhamento-header-submeter">
-            <h4>Arquivos enviados:</h4>
+			<h4><?php if($_SESSION['UsuarioNivel'] == 1) {echo "Submissões";}else{echo "Suas Submissões";}?></h4>
             <div>
-                <span>Deseja enviar um arquivo para análise ?</span>
-                <button class="btnEnviarFile">Enviar</button>
+                <a href="uploadArquive"  class="header-sair">Enviar arquivo para análise </a>
             </div> 
         </div>
         <div class="acompanhamento-corpo-corpo">
             <table>
                     <tr>
                         <th>Usuario envio</th>
+						<th>Número da solicitação</th>
                         <th>Situação</th>
-                        <th>Arquivo</th>
+                        <th>Arquivo Enviado</th>
                         <th>Resultado</th>
                     </tr>
                     <?php
+						
                         foreach ($_SESSION['Acompanhamentos'] as $item) {
                             echo '<tr>
-                            <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioID'] ? "Você" : "Indefinido").'</td>
-                            <td>'.($item['pedente'] == 0 ? "Pendente" : "Ok").'</td>
-                            <td><a href="'.$item['arquivo'].'">Baixar</a></td>
-                            <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./uploadResult/'.$item['id'].'">Enviar Resultado</a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./arquives/'.$item['resultado'].'">Baixar</a> | <a href="'.$item['resultado'].'">Cancelar</a>' : '<a href="'.$item['resultado'].'">Baixar</a>')).'</td>
+                            <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? "Você" : $item['id_usuario_envio']).'</td>
+							<td>'.$item['id'].'</td>
+                            <td>'.($item['status'] == 0 ? "Submetido" : ($item['status'] == 1 ?  "Em análise pelos modelos de Inteligência Artificial": ($item['status'] == 2 ? "Em análise pelo(s) colaborador(es)" : ($item['status'] == 3 ? "Resultado Diponível" : " --- ")))).'</td>
+                            <td><a href="/arquivoParaAnalise/'.$item['arquivo'].'.pdf"><img src="/imgs/download.svg"/></a></td>
+                            <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./resultados/'.$item['resultado'].'.pdf"><img src="/imgs/download.svg"/></a> | <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['resultado'].'.pdf"><img src="/imgs/download.svg"/></a>')).'</td>
                             </tr>';
                         }
                     ?>
-            </table>    
+            </table>
+			<div class="manual">
+				<span class="item-manual">
+					<div>Enviar</div>
+					<img src="/imgs/upload.svg"/>
+				</span>
+				<span class="item-manual">
+					<div>/ Baixar</div>
+					<img src="/imgs/download.svg"/>
+				</span>
+				<span class="item-manual">
+					<div>/ Cencelar ou Cencelar envio</div>
+					<img src="/imgs/cancel.svg"/>
+				</span>
+			</div>
         </div>
     </div>
 </body>

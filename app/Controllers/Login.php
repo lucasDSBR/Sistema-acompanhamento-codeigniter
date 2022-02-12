@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Controllers;
-
 class Login extends BaseController
 {
     public function validLogin()
     {
-        if (!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['password']))) {
+        if (!empty($_POST) AND (empty($_POST['cpf']) OR empty($_POST['password']))) {
             return view('index');
         }else {
             // Tenta se conectar ao servidor MySQL
@@ -14,11 +13,12 @@ class Login extends BaseController
             // Tenta se conectar a um banco de dados MySQL
             mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
 
-            $usuario = mysqli_real_escape_string($conexao, $_POST['usuario']);
+            $cpf = mysqli_real_escape_string($conexao, $_POST['cpf']);
             $senha = mysqli_real_escape_string($conexao, $_POST['password']);
+
             
             // Validação do usuário/senha digitados
-            $sql = "SELECT `id`, `nome`, `nivel` FROM `usuarios` WHERE (`usuario` = '".$usuario ."') AND (`senha` = '". sha1($senha) ."') AND (`ativo` = 1) LIMIT 1";
+            $sql = "SELECT `id`, `nome`, `nivel`, `matricula`, `email` FROM `usuarios` WHERE (`cpf` = '".$cpf."') AND (`senha` = '".sha1($senha)."') AND (`ativo` = 1) LIMIT 1";
             $query = mysqli_query($conexao, $sql);
             
             if (mysqli_num_rows($query) != 1) {
@@ -30,13 +30,13 @@ class Login extends BaseController
                 
 
 
-                $sql_acompanhamento = "SELECT * FROM `acompanhamentos`";
+                $sql_acompanhamento = $resultado_data_user['nivel'] == 1? "SELECT * FROM `acompanhamentos`;" : "SELECT * FROM `acompanhamentos` WHERE (`id_usuario_envio` = '".$resultado_data_user['matricula']."')";
                 $query_acompanhamento = mysqli_query($conexao, $sql_acompanhamento);
 
                 $arr = array();
                 if (!$query_acompanhamento) {
-                    $mensagem_erro  = 'Erro de sintaxe na query: ' . mysqli_error($conexao) . "<br>";
-                    $destino = 'index.php?msg='.$mensagem_erro;
+                    $mensagem_erro  = 'Erro de sintaxe na query: '.mysqli_error($conexao)."<br>";
+                    $destino = '/?msg='.$mensagem_erro;
                     header("Location: $destino");
                     exit;
                 }
@@ -48,13 +48,12 @@ class Login extends BaseController
                         'id_usuario_analise' => $row['id_usuario_analise'], 
                         'data_envio' => $row['data_envio'], 
                         'data_analise' => $row['data_analise'], 
-                        'pedente' => $row['pedente'], 
-                        'traducao' => $row['traducao'], 
-                        'tipo_revisao' => $row['tipo_revisao'], 
-                        'tipo_traducao' => $row['tipo_traducao'], 
-                        'tipo_revisao' => $row['tipo_revisao'], 
-                        'arquivo' => $row['arquivo'],
-                        'resultado' => $row['resultado']
+                        'status' => $row['status'],
+                        'tipo_servico' => $row['tipoServico'],
+                        'tipo_revisao' => $row['tipoRevisao'], 
+                        'tipo_traducao' => $row['tipoTraducao'],
+                        'arquivo' => $row['pathArquivo'],
+                        'resultado' => $row['pathResultado']
                     );
                     $arr[] = $obj;
                 }
@@ -66,7 +65,9 @@ class Login extends BaseController
                 // Salva os dados encontrados na sessão
                 $_SESSION['UsuarioID'] = $resultado_data_user['id'];
                 $_SESSION['UsuarioNome'] = $resultado_data_user['nome'];
+                $_SESSION['UsuarioEmail'] = $resultado_data_user['email'];
                 $_SESSION['UsuarioNivel'] = $resultado_data_user['nivel'];
+                $_SESSION['UsuarioMatricula'] = $resultado_data_user['matricula'];
                 $_SESSION['Acompanhamentos'] = $arr;
 
                 // Redireciona o visitante para dash board

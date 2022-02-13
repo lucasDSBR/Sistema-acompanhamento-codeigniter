@@ -22,144 +22,32 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Enviar para análise</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' href='./css/style.css'>
+    <link rel='stylesheet' type='text/css' href='../css/style.css'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-	<style type="text/css">
-		body {
-			font-family: "Nunito", Helvetica, Arial, sans-serif;
-			margin: 0;
-		}
-		.formulario{
-			margin-top: 80px;
-			display: grid;
-			flex-wrap: wrap;
-			justify-items: center;
-		}
-		.formulario-corpo{
-			background: #2342;
-			padding: 20px;
-		}
-		.formulario-input {
-			margin-bottom: 10px;
-		}
-		.formulario-input{
-			display: grid;
-			grid-template-rows: 1fr
-		}
-		.formulario-input .idAcompanhamento {
-			height: 40px;
-			width: 300px;
-			pointer-events:none;
-			outline:none;
-		}
-		.formulario-input .usuario {
-			height: 40px;
-			width: 300px;
-		}
-		.formulario-input .password {
-			height: 40px;
-			width: 300px;
-		}
-		.formulario-input .idAcompanhamento:focus {
-			outline-width: 0;
-			
-		}
-		.formulario-input .usuario:focus {
-			outline-width: 0;
-		}
-		.formulario-input .password:focus {
-			outline-width: 0;
-		}
-		.formulario-input .btnEntrar {
-			height: 40px;
-			width: auto;
-			background: #009E98DB;
-			border: none;
-			color: #ffff;
-			font-weight: bold;
-			cursor: pointer;
-		}
-		.formulario-corpo h1 {
-			text-align: center;
-		}
 
-		/* Restrido */
-
-		.header h2 {
-			margin: 0;
-			padding: 0;
-		}
-		.header {
-			color:#fff;
-			padding: 20px;
-			background-color: #009E98DB;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.header-sair {
-			text-decoration: none;
-			color: #fff;
-			padding: 20px;
-		}
-
-		.acompanhamento-corpo {
-			max-width: 960px;
-			margin: 0 auto;
-			display: grid;
-			grid-template-rows: 1fr
-		}
-		.acompanhamento-header-submeter {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.btnEnviarFile{
-			height: 30px;
-			width: 100px;
-			width: auto;
-			background: #009E98DB;
-			border: none;
-			color: #ffff;
-			cursor: pointer;
-			border-radius: 4px;
-		}
-
-		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
-			width: 100%;
-		}
-		
-		td, th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-		
-		tr:nth-child(even) {
-			background-color: #efefef;
-		}
-	</style>
 </head>
 <body>
-    <div class="header">
+	<div class="header">
         <h2>Acompanhamento TradUnilab</h2>
-        <a href="/logout" class="header-sair">Sair</a>
+        <div class="menu">
+            <p><?php echo $_SESSION['UsuarioNome']; ?></p>
+			<p><a href="/dashboard" class="header-sair">Inicio</a></p>
+			<p><?php if($_SESSION['UsuarioNivel'] == 1) echo "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>"; ?></p>
+            <p><a href="/logout" class="header-sair">Sair</a></p>
+        </div>
     </div>
     <div class="acompanhamento-corpo">
-        <div class="acompanhamento-corpo-corpo">
-            <a href="/dashboard">Retornar</a>
+		<div class="acompanhamento-corpo-corpo">
+            <p><a href="/dashboard" class="header-sair">Voltar</a></p>
         </div>
         <div class="acompanhamento-corpo-header">
-            <p>Olá, <?php echo $_SESSION['UsuarioNome']; ?>!</p>
 			<?php
-			$url_components = parse_url($_SERVER['HTTP_REFERER']);
-			parse_str($url_components['query'], $params);
-			$url = $_SERVER['REQUEST_URI'];
-			$idAcompanhamento = end(explode("/",$url));
+				$url_components = parse_url($_SERVER['HTTP_REFERER']);
+				parse_str($url_components['query'], $params);
+				$url = $_SERVER['REQUEST_URI'];
+				$idAcompanhamento = end(explode("/",$url));
 			?>
         </div>
         <div class="acompanhamento-corpo-corpo">
@@ -168,7 +56,6 @@
                 <div class="formulario-corpo">
                     <h1>Enviar Resultado</h1>
 					<div class="formulario-input">
-                        <label for="idAcompanhamento">Identificador acompanhamento(Não é editável)</label>
                         <input type="text" name="idAcompanhamento" id="idAcompanhamento" class="idAcompanhamento" value="<?php echo $idAcompanhamento ?>" />
                     </div>
                     <div class="formulario-input">

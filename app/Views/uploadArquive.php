@@ -26,132 +26,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-	<style type="text/css">
-		body {
-			font-family: "Nunito", Helvetica, Arial, sans-serif;
-			margin: 0;
-		}
-		.formulario{
-			margin-top: 4px;
-			display: grid;
-			flex-wrap: wrap;
-			justify-items: center;
-		}
-        .menu{
-            display: flex;
-			flex-wrap: wrap;
-			justify-items: center;
-        }
-		.formulario-corpo{
-			background: #2342;
-			padding: 20px;
-		}
-		.formulario-input {
-			margin-bottom: 10px;
-		}
-		.formulario-input{
-			display: grid;
-			grid-template-rows: 1fr
-		}
-		.formulario-input .usuario {
-			height: 40px;
-			width: 300px;
-		}
-		.formulario-input .password {
-			height: 40px;
-			width: 300px;
-		}
 
-		.formulario-input .usuario:focus {
-			outline-width: 0;
-		}
-		.formulario-input .password:focus {
-			outline-width: 0;
-		}
-		.formulario-input .btnEntrar {
-			height: 40px;
-			width: auto;
-			background: #009E98DB;
-			border: none;
-			color: #ffff;
-			font-weight: bold;
-			cursor: pointer;
-		}
-		.formulario-corpo h1 {
-			text-align: center;
-		}
-
-		/* Restrido */
-
-		.header h2 {
-			margin: 0;
-			padding: 0;
-		}
-		.header {
-			color:#fff;
-			padding: 20px;
-			background-color: #009E98DB;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.header-sair {
-			text-decoration: none;
-			color: #fff;
-			padding: 20px;
-		}
-
-		.acompanhamento-corpo {
-			max-width: 960px;
-			margin: 0 auto;
-			display: grid;
-			grid-template-rows: 1fr
-		}
-		.acompanhamento-header-submeter {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-		.btnEnviarFile{
-			height: 30px;
-			width: 100px;
-			width: auto;
-			background: #009E98DB;
-			border: none;
-			color: #ffff;
-			cursor: pointer;
-			border-radius: 4px;
-		}
-
-		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
-			width: 100%;
-		}
-		
-		td, th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-		
-		tr:nth-child(even) {
-			background-color: #efefef;
-		}
-	</style>
 </head>
 <body>
     <div class="header">
         <h2>Acompanhamento TradUnilab</h2>
         <div class="menu">
-            <p>Olá, <?php echo $_SESSION['UsuarioNome']; ?>!</p>
-            <p><a href="./logout" class="header-sair">Sair</a></p>
+            <p><?php echo $_SESSION['UsuarioNome']; ?></p>
+            <p><a href="/dashboard" class="header-sair">Inicio</a></p>
+			<p><?php if($_SESSION['UsuarioNivel'] == 1) echo "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>"; ?></p>
+            <p><a href="/logout" class="header-sair">Sair</a></p>
         </div>
-        
     </div>
     <div class="acompanhamento-corpo">
         <div class="acompanhamento-corpo-corpo">
-            <a href="dashboard">Retornar</a>
+            <p><a href="/dashboard" class="header-sair">Voltar</a></p>
         </div>
         
         <div class="acompanhamento-corpo-corpo">

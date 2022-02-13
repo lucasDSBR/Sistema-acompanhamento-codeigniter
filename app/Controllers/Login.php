@@ -18,9 +18,7 @@ class Login extends BaseController
 
             
             // Validação do usuário/senha digitados
-
             $sql = "SELECT `id`, `nome`, `nivel`, `matricula`, `email` FROM `usuarios` WHERE (`cpf` = '".$cpf."') AND (`senha` = '".sha1($senha)."') AND (`ativo` = 1) LIMIT 1";
-
             $query = mysqli_query($conexao, $sql);
             
             if (mysqli_num_rows($query) != 1) {

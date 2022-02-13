@@ -18,7 +18,9 @@ class Login extends BaseController
 
             
             // Validação do usuário/senha digitados
+
             $sql = "SELECT `id`, `nome`, `nivel`, `matricula`, `email` FROM `usuarios` WHERE (`cpf` = '".$cpf."') AND (`senha` = '".sha1($senha)."') AND (`ativo` = 1) LIMIT 1";
+
             $query = mysqli_query($conexao, $sql);
             
             if (mysqli_num_rows($query) != 1) {
@@ -31,12 +33,15 @@ class Login extends BaseController
 
 
                 $sql_acompanhamento = $resultado_data_user['nivel'] == 1? "SELECT * FROM `acompanhamentos`;" : "SELECT * FROM `acompanhamentos` WHERE (`id_usuario_envio` = '".$resultado_data_user['matricula']."')";
+
                 $query_acompanhamento = mysqli_query($conexao, $sql_acompanhamento);
 
                 $arr = array();
                 if (!$query_acompanhamento) {
                     $mensagem_erro  = 'Erro de sintaxe na query: '.mysqli_error($conexao)."<br>";
+
                     $destino = '/?msg='.$mensagem_erro;
+
                     header("Location: $destino");
                     exit;
                 }

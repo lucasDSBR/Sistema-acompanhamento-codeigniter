@@ -36,6 +36,7 @@
 			<p><?php if($_SESSION['UsuarioNivel'] == 1) echo "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>"; ?></p>
             <p><a href="/logout" class="header-sair">Sair</a></p>
         </div>
+
     </div>
     <div class="acompanhamento-corpo">
         <div class="acompanhamento-header-submeter">
@@ -58,7 +59,7 @@
                         foreach ($_SESSION['Acompanhamentos'] as $item) {
                             echo '<tr>
                             <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? "Você" : $item['id_usuario_envio']).'</td>
-							<td>'.$item['id'].'</td>
+							              <td>'.$item['id'].'</td>
                             <td>'.($item['status'] == 0 ? "Submetido" : ($item['status'] == 1 ?  "Em análise pelos modelos de Inteligência Artificial": ($item['status'] == 2 ? "Em análise pelo(s) colaborador(es)" : ($item['status'] == 3 ? "Resultado Diponível" : " --- ")))).'</td>
                             <td><a href="/arquivoParaAnalise/'.$item['arquivo'].'.pdf"><img src="/imgs/download.svg"/></a></td>
                             <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./resultados/'.$item['resultado'].'.pdf"><img src="/imgs/download.svg"/></a> | <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['resultado'].'.pdf"><img src="/imgs/download.svg"/></a>')).'</td>

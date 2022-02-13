@@ -44,6 +44,9 @@ $routes->setAutoRoute(true);
     $routes->get('/aprovar', 'Aprovar::aprovar');
     $routes->get('/detalhesUserId/(:segment)', 'Aprovar::detalhesUser/$1');
     $routes->get('/aprovarUser/(:segment)', 'Aprovar::aprovarUser/$1');
+    $routes->post('uploadResult', 'Upload::to_uploadResult');
+    $routes->get('/uploadArquive', 'Upload::uploadArquive');
+    $routes->post('/uploadArquive', 'Upload::to_uploadArquive');
     $routes->get('/logout', 'Home::logout');
 
 /*

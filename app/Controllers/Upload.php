@@ -26,8 +26,10 @@ class Upload extends BaseController
             $id_acompanhamento = mysqli_real_escape_string($conexao, $_POST['idAcompanhamento']);
             // Validação do usuário/senha digitados
             $sql = "UPDATE `acompanhamentos` SET `pathResultado`='$path', `data_analise`= NOW(), `status`= 3  WHERE (`id` = '".$id_acompanhamento ."');";
+
             mysqli_query($conexao, $sql);
             header("Location: /dashboard"); exit;
+
         }
         else {
             echo "Erro ao enviar o resultado";
@@ -90,8 +92,6 @@ class Upload extends BaseController
             // Validação do usuário/senha digitados
             $comandoSql = "INSERT INTO acompanhamentos VALUES (NULL, '".$iduser."', NULL, NOW(), NULL, 1, '".$tipoServico."', '".$tipoRevisao."', '".$tipoTraducao."', '".$nomeColabs."', '".$periodicoOrEvento."', '".$nomePeriodicoOrEvento."', '".$justificativaPedido."', '".$paginas."', 0,'".$arquivo."', NULL);";
             $query = mysqli_query($conexao, $comandoSql);
-
-            
 
             if($this->isOnline()){
                 $to = 'trad@unilab.edu.br';
@@ -159,5 +159,6 @@ class Upload extends BaseController
         }else {
             return false;
         }
+
     }
 }

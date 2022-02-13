@@ -92,7 +92,6 @@ class Upload extends BaseController
             // Validação do usuário/senha digitados
             $comandoSql = "INSERT INTO acompanhamentos VALUES (NULL, '".$iduser."', NULL, NOW(), NULL, 1, '".$tipoServico."', '".$tipoRevisao."', '".$tipoTraducao."', '".$nomeColabs."', '".$periodicoOrEvento."', '".$nomePeriodicoOrEvento."', '".$justificativaPedido."', '".$paginas."', 0,'".$arquivo."', NULL);";
             $query = mysqli_query($conexao, $comandoSql);
-
             if($this->isOnline()){
                 $to = 'trad@unilab.edu.br';
                 $subject = 'Nova submissão ao tradUnilab - '.$iduser." - ".date("H-i-s");
@@ -145,7 +144,6 @@ class Upload extends BaseController
             }else {
                 return "Não está online";
             }
-
 
             header("Location: dashboard");
             exit;

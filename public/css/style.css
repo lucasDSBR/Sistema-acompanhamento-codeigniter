@@ -162,7 +162,11 @@ label {
     margin: 0px auto;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .item-manual{
     display: flex;
+}
+.item-manual img {
+    max-width: 100%;
 }

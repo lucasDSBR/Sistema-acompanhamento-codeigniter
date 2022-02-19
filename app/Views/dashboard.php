@@ -61,8 +61,8 @@
                             <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? "Você" : $item['id_usuario_envio']).'</td>
 							<td>'.$item['id'].'</td>
                             <td>'.($item['status'] == 0 ? "Submetido" : ($item['status'] == 1 ?  "Em análise pelos modelos de Inteligência Artificial": ($item['status'] == 2 ? "Em análise pelo(s) colaborador(es)" : ($item['status'] == 3 ? "Resultado Diponível" : " --- ")))).'</td>
-                            <td><a href="/arquivoParaAnalise/'.$item['arquivo'].'.pdf"><img src="/imgs/download.svg"/></a></td>
-                            <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./resultados/'.$item['resultado'].'.pdf"><img src="/imgs/download.svg"/></a> | <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['resultado'].'.pdf"><img src="/imgs/download.svg"/></a>')).'</td>
+                            <td><a href="/arquivoParaAnalise/'.$item['arquivo'].'.pdf"  download><img src="/imgs/download.svg"/></a>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? '<a href="/cancelUploadArquive/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : "").'</td>
+                            <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./resultados/'.$item['resultado'].'.pdf" download="./resultados/'.$item['resultado'].'"><img src="/imgs/download.svg"/></a> <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['resultado'].'.pdf" download="./resultados/'.$item['resultado'].'"><img src="/imgs/download.svg"/></a>')).'</td>
                             </tr>';
                         }
                     ?>
@@ -85,7 +85,7 @@
 					<img src="/imgs/aprove.svg"/>
 				</span>
 				<span class="item-manual">
-					<div>/ Cencelar ou Cencelar envio</div>
+					<div>/ Cancelar ou Cancelar envio</div>
 					<img src="/imgs/cancel.svg"/>
 				</span>
 			</div>

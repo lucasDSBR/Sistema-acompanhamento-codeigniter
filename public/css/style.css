@@ -170,3 +170,37 @@ label {
 .item-manual img {
     max-width: 100%;
 }
+#tipoTraducao {
+    display: none;
+}
+
+#tipoRevisao {
+    display: none;
+}
+
+#nomePeriodicoEvento {
+    display: none;
+}
+
+
+
+/* -- tela de sucesso -- */
+.card-success{
+    display: flex;
+    justify-content: center;
+}
+.cad-success-item {
+    width: 600px;
+    text-align: center;
+    background: #efefef;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+.cad-success-item-header {
+    display: inline-block;
+    text-align: center;
+}
+
+.cad-success-item-header img {
+    width: 100px;
+}

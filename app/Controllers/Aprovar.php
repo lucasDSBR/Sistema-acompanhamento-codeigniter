@@ -113,4 +113,22 @@ class Aprovar extends BaseController
         mysqli_query($conexao, $sqlUpdate);
         header("Location: /aprovar"); exit;
     }
+
+    function reprovarUser($matriculaUser = null)
+    {
+        //Iniciando conexao e enviadno atualização
+        // Tenta se conectar ao servidor MySQL
+        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
+        // Tenta se conectar a um banco de dados MySQL
+        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
+
+        $matricula = mysqli_real_escape_string($conexao, $matriculaUser);
+        // Validação do usuário/senha digitados
+        $sql = "SELECT * FROM `usuarios` WHERE (`matricula` = '".$matricula."');";
+        $query = mysqli_query($conexao, $sql);
+        $row = mysqli_fetch_assoc($query);
+        $sqlUpdate = "DELETE FROM `usuarios` WHERE (`matricula` = $matricula);";
+        mysqli_query($conexao, $sqlUpdate);
+        header("Location: /aprovar"); exit;
+    }
 }

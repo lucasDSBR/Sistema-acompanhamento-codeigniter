@@ -27,40 +27,6 @@ class Login extends BaseController
             } else {
                 // Salva os dados encontrados na variável $resultado
                 $resultado_data_user = mysqli_fetch_assoc($query);
-                
-
-
-                $sql_acompanhamento = $resultado_data_user['nivel'] == 1? "SELECT * FROM `acompanhamentos`;" : "SELECT * FROM `acompanhamentos` WHERE (`id_usuario_envio` = '".$resultado_data_user['matricula']."')";
-
-                $query_acompanhamento = mysqli_query($conexao, $sql_acompanhamento);
-
-                $arr = array();
-                if (!$query_acompanhamento) {
-                    $mensagem_erro  = 'Erro de sintaxe na query: '.mysqli_error($conexao)."<br>";
-
-                    $destino = '/?msg='.$mensagem_erro;
-
-                    header("Location: $destino");
-                    exit;
-                }
-
-                while($row = mysqli_fetch_assoc($query_acompanhamento)){
-                    $obj = array(
-                        'id' => $row['id'], 
-                        'id_usuario_envio' => $row['id_usuario_envio'], 
-                        'id_usuario_analise' => $row['id_usuario_analise'], 
-                        'data_envio' => $row['data_envio'], 
-                        'data_analise' => $row['data_analise'], 
-                        'status' => $row['status'],
-                        'tipo_servico' => $row['tipoServico'],
-                        'tipo_revisao' => $row['tipoRevisao'], 
-                        'tipo_traducao' => $row['tipoTraducao'],
-                        'arquivo' => $row['pathArquivo'],
-                        'resultado' => $row['pathResultado']
-                    );
-                    $arr[] = $obj;
-                }
-
 
                 // Se a sessão não existir, inicia uma
                 if (!isset($_SESSION)) session_start();
@@ -71,7 +37,6 @@ class Login extends BaseController
                 $_SESSION['UsuarioEmail'] = $resultado_data_user['email'];
                 $_SESSION['UsuarioNivel'] = $resultado_data_user['nivel'];
                 $_SESSION['UsuarioMatricula'] = $resultado_data_user['matricula'];
-                $_SESSION['Acompanhamentos'] = $arr;
 
                 // Redireciona o visitante para dash board
                 header("Location: dashboard");

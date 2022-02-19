@@ -38,15 +38,18 @@ $routes->setAutoRoute(true);
     $routes->post('/validLogin', 'Login::validLogin');
     $routes->get('/uploadResult/(:segment)', 'Upload::uploadResult/$1');
     $routes->get('/cancelUploadResult/(:segment)', 'Upload::cancelUploadResult/$1');
+    $routes->get('/cancelUploadArquive/(:segment)', 'Upload::cancelUploadArquive/$1');
     $routes->post('uploadResult', 'Upload::to_uploadResult');
     $routes->get('/uploadArquive', 'Upload::uploadArquive');
     $routes->post('/uploadArquive', 'Upload::to_uploadArquive');
     $routes->get('/aprovar', 'Aprovar::aprovar');
     $routes->get('/detalhesUserId/(:segment)', 'Aprovar::detalhesUser/$1');
     $routes->get('/aprovarUser/(:segment)', 'Aprovar::aprovarUser/$1');
+    $routes->get('/reprovarUser/(:segment)', 'Aprovar::reprovarUser/$1');
     $routes->post('uploadResult', 'Upload::to_uploadResult');
     $routes->get('/uploadArquive', 'Upload::uploadArquive');
     $routes->post('/uploadArquive', 'Upload::to_uploadArquive');
+    $routes->get('/success', 'Home::success');
     $routes->get('/logout', 'Home::logout');
 
 /*

@@ -61,7 +61,7 @@
                             <td>'.$item['nome'].'</td>
                             <td>'.$item['matricula'].'</td>
                             <td>'.($item['comprovante'] != ""? '<a href="comprovantes/'.$item['comprovante'].'.pdf"><img src="/imgs/download.svg"/></a>' : "Não informado").'</td>
-                            <td><a href="/detalhesUserId/'.$item['matricula'].'"><img src="/imgs/visibility.svg"/></a> | <a href="aprovarUser/'.$item['matricula'].'"><img src="/imgs/aprove.svg"/></a></td>
+                            <td><a href="/detalhesUserId/'.$item['matricula'].'"><img src="/imgs/visibility.svg"/></a> | <a href="aprovarUser/'.$item['matricula'].'"><img src="/imgs/aprove.svg"/></a> | <a href="reprovarUser/'.$item['matricula'].'"><img src="/imgs/cancel.svg"/></a></td>
                             </tr>';
                         }
                     ?>

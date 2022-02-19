@@ -82,7 +82,7 @@
                         </p>
                         <p>
                             <label>Comprovante:</label><br/>
-                            <span><a href="/comprovantes/'.$item['comprovante'].'.pdf">Baixar</a></span>
+                            <span><a href="/comprovantes/'.$item['comprovante'].'.pdf" download>Baixar</a></span>
                         </p>
                         <p>
                             <label>Finalidade de uso da plataforma TradUnilab:</label><br/>

@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-
+    <script src="./js/jsUploadArquive.js"></script>
 </head>
 <body>
     <div class="header">
@@ -58,23 +58,23 @@
                     </div>
                     <div class="formulario-input">
                         <label for="tipoServico">Tipo de Serviço</label>
-                        <select id="tipoServico" class="usuario" name="tipoServico">
+                        <select id="tipoServico" class="usuario" name="tipoServico" onChange="tipoServ()">
                             <option value="0"> Selecione uma opção </option>
                             <option value="1">Tradução</option>
                             <option value="2">Revisão</option>
                         </select>
                     </div>
-                    <div class="formulario-input">
-                        <label for="tipoTraducao">Selecione um tipo de Tradução</label>
-                        <select id="tipoTraducao" class="usuario" name="tipoTraducao">
+                    <div class="formulario-input" id="tipoTraducao">
+                        <label for="tipoTraducao">Selecione um tipo de Tradução</label><br/>
+                        <select class="usuario" name="tipoTraducao">
                             <option value="0"> Selecione uma opção </option>
                             <option value="1">Português -> Inglês</option>
                             <option value="2">Inglês -> Português</option>
                         </select>
                     </div>
-                    <div class="formulario-input">
-                        <label for="tipoRevisao">Selecione um tipo de Revisao</label>
-                        <select id="tipoRevisao" class="usuario" name="tipoRevisao">
+                    <div class="formulario-input"  id="tipoRevisao" >
+                        <label for="tipoRevisao">Selecione um tipo de Revisao</label><br/>
+                        <select class="usuario" name="tipoRevisao">
                             <option value="0"> Selecione uma opção </option>
                             <option value="1">Inglês</option>
                             <option value="2">Português</option>
@@ -86,22 +86,22 @@
                     </div>
                     <div class="formulario-input">
                         <label for="periodicoOrEvento">Enviar para periódico ou evento?</label>
-                        <select id="periodicoOrEvento" class="usuario" name="periodicoOrEvento">
+                        <select id="periodicoOrEvento" class="usuario" name="periodicoOrEvento" onChange="nomePeriodicoEvento()">
                             <option value="0"> Selecione uma opção </option>
                             <option value="1">Periódico</option>
                             <option value="2">Evento</option>
                         </select>
                     </div>
-                    <div class="formulario-input">
-                        <label for="nomePeriodicoOrEvento">Nome do periódico ou evento</label>
+                    <div class="formulario-input" id="nomePeriodicoEvento">
+                        <label for="nomePeriodicoOrEvento">Nome do <span id="periOrEvent"></span>:</label><br/>
                         <input type="text" name="nomePeriodicoOrEvento" id="nomePeriodicoOrEvento" class="usuario"/>
                     </div>
                     <div class="formulario-input">
                         <label for="justificativaPedido">Justificativa para o pedido</label>
-                        <input type="text" name="justificativaPedido" id="justificativaPedido" class="usuario"/>
+                        <input type="text" name="justificativaPedido" id="justificativaPedido" class="usuario" maxlength="500" minlength="10"/>
                     </div>
                     <div class="formulario-input">
-                        <label for="paginas">efetuar tradução/revisão de quais páginas?</label>
+                        <label for="paginas">Efetuar tradução/revisão de quais páginas?</label>
                         <input type="text" name="paginas" id="paginas" class="usuario" placeholder="ex. 1, 3, 4, 5-9"/>
                     </div>
                     <div class="formulario-input">
@@ -117,5 +117,6 @@
         </div>
     </div>
 </body>
+
 </html>
   

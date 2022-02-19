@@ -28,7 +28,7 @@ class Upload extends BaseController
             $sql = "UPDATE `acompanhamentos` SET `pathResultado`='$path', `data_analise`= NOW(), `status`= 3  WHERE (`id` = '".$id_acompanhamento ."');";
 
             mysqli_query($conexao, $sql);
-            header("Location: /dashboard"); exit;
+            header("Location: /success"); exit;
 
         }
         else {
@@ -50,10 +50,33 @@ class Upload extends BaseController
         $query = mysqli_query($conexao, $sql);
         $row = mysqli_fetch_assoc($query);
         if(file_exists("./resultados/".$row['pathResultado'].".pdf")){
-            $sqlUpdate = "UPDATE `acompanhamentos` SET `pathResultado` = NULL, `data_analise` = NULL, `status` = 4 WHERE (`id` = $id);";
+            $sqlUpdate = "UPDATE `acompanhamentos` SET `pathResultado` = NULL, `data_analise` = NULL, `status` = 0 WHERE (`id` = $id);";
             unlink("./resultados/".$row['pathResultado'].".pdf");
             mysqli_query($conexao, $sqlUpdate);
-            header("Location: /dashboard"); header('Refresh:0'); exit;
+            header("Location: /dashboard"); exit;
+        }else{
+            return "Não foi possível encontrar o arquivo do resultado no servidor.";
+        }
+    }
+
+    public function cancelUploadArquive($id = null)
+    {
+        //Iniciando conexao e enviadno atualização
+        // Tenta se conectar ao servidor MySQL
+        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
+        // Tenta se conectar a um banco de dados MySQL
+        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
+
+        $id_acompanhamento = mysqli_real_escape_string($conexao, $id);
+        // Validação do usuário/senha digitados
+        $sql = "SELECT * FROM `acompanhamentos` WHERE (`id` = '".$id_acompanhamento."');";
+        $query = mysqli_query($conexao, $sql);
+        $row = mysqli_fetch_assoc($query);
+        if(file_exists("./arquivoParaAnalise/".$row['pathArquivo'].".pdf")){
+            $sqlDelete = "DELETE FROM  `acompanhamentos` WHERE (`id` = $id);";
+            unlink("./arquivoParaAnalise/".$row['pathArquivo'].".pdf");
+            mysqli_query($conexao, $sqlDelete);
+            header("Location: /dashboard"); exit;
         }else{
             return "Não foi possível encontrar o arquivo do resultado no servidor.";
         }
@@ -145,7 +168,7 @@ class Upload extends BaseController
                 return "Não está online";
             }
 
-            header("Location: dashboard");
+            header("Location: /success");
             exit;
         }else {
             return "Erro ao realizar o envio do comprovante.";

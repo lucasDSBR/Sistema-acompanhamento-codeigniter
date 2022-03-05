@@ -1,48 +1,13 @@
-<?php
 
-    // A sessão precisa ser iniciada em cada página diferente
-    if (!isset($_SESSION)) session_start();
+<?php $this->extend('template');?>
 
-    $nivel_necessario = 1;
+<?php $this->section('content'); ?>
 
-    // Verifica se não há a variável da sessão que identifica o usuário
-    if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] < 1)) {
-        // Destrói a sessão por segurança
-        session_destroy();
-        // Redireciona o visitante de volta pro login
-        header("Location: /"); 
-        exit;
-    }
-
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Dashboard</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' href='./css/style.css'>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="header">
-        <h2>Acompanhamento TradUnilab</h2>
-        <div class="menu">
-            <p><?php echo $_SESSION['UsuarioNome']; ?></p>
-			<p><a href="/dashboard" class="header-sair">Inicio</a></p>
-			<p><?php if($_SESSION['UsuarioNivel'] == 1) echo "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>"; ?></p>
-            <p><a href="/logout" class="header-sair">Sair</a></p>
-        </div>
-        
-    </div>
     <div class="acompanhamento-corpo">
         <div class="acompanhamento-header-submeter">
-			<h4><?php if($_SESSION['UsuarioNivel'] == 1) {echo "Submissões";}else{echo "Suas Submissões";}?></h4>
+			<h4><?= $titulo; ?></h4>
             <div>
-                <a href="uploadArquive"  class="header-sair">Enviar arquivo para análise </a>
+                <a href="<?=base_url(). '/submissoes/new'?>"  class="header-sair">Enviar arquivo para análise </a>
             </div> 
         </div>
         <div class="acompanhamento-corpo-corpo">
@@ -56,7 +21,7 @@
                     </tr>
                     <?php
 						
-                        foreach ($_SESSION['Acompanhamentos'] as $item) {
+                        foreach ($submissoes as $item) {
                             echo '<tr>
                             <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? "Você" : $item['id_usuario_envio']).'</td>
 							<td>'.$item['id'].'</td>
@@ -91,6 +56,5 @@
 			</div>
         </div>
     </div>
-</body>
-</html>
-  
+
+<?php $this->endSection(); ?>

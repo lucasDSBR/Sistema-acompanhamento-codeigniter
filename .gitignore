@@ -126,3 +126,4 @@ nb-configuration.xml
 /.phpunit.*.cache
 
 writable/trad-unilab.sqlite3
+composer.lock

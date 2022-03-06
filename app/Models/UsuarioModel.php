@@ -27,31 +27,23 @@ class UsuarioModel extends Model
     protected $validationRules = [
         'nome' =>[
             'label' => 'Nome',
-            'rules' => 'required|max_length[50]'
+            'rules' => 'required|min_length[10]|max_length[50]'
         ], 
         'senha' =>[
             'label' => 'Senha',
-            'rules' => 'required|max_length[40]'
+            'rules' => 'required|min_length[8]|max_length[255]'
         ], 
         'email' =>[
             'label' => 'e-mail',
-            'rules' => 'required|max_length[100]'
+            'rules' => 'required|valid_email|max_length[100]'
         ], 
         'nivel' =>[
             'label' => 'Nível',
             'rules' => 'required'
-        ], 
-        'ativo' =>[
-            'label' => 'Ativo',
-            'rules' => 'required'
-        ], 
-        'data_cadastro' =>[
-            'label' => 'Data do cadastro',
-            'rules' => 'required'
-        ], 
+        ],
         'cpf' =>[
             'label' => 'CPF',
-            'rules' => 'required|max_length[11]'
+            'rules' => 'required|is_unique[usuarios.cpf,id,{id}]|exact_length[11]|numeric'
         ], 
         'ics' =>[
             'label' => 'ICS',
@@ -74,4 +66,14 @@ class UsuarioModel extends Model
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
+    protected $beforeInsert = ['beforeInsert'];
+
+    protected function beforeInsert($data)
+    {
+        $data['data']['ativo'] = 0;
+        $data['data']['data_cadastro'] = date('Y-m-d H:i:s');
+        $data['data']['senha'] = password_hash($data['data']['senha'], PASSWORD_DEFAULT);
+
+        return $data;
+    }
 }

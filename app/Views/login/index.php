@@ -17,6 +17,9 @@
         <div class="formulario-input">
             <input type="submit" value="Entrar" class="btnEntrar" />
         </div>
+        <div class="center">
+            <a href="<?=base_url(). '/register'?>">Não tenho cadastro</a>
+        </div>
     </div>
 </form>   
 

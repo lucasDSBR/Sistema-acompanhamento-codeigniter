@@ -33,8 +33,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
     $routes->get('/', 'Login::index');
     $routes->get('/register', 'Register::index');
-    $routes->post('/register', 'Register::registerUser');
-    $routes->get('/dashboard', 'Home::dashboard');
+    $routes->post('/register', 'Register::create');
+    $routes->get('/dashboard', 'Home::dashboard', ['filter' => 'auth']);
     $routes->post('/validLogin', 'Login::validLogin');
     $routes->get('/uploadResult/(:segment)', 'Upload::uploadResult/$1');
     $routes->get('/cancelUploadResult/(:segment)', 'Upload::cancelUploadResult/$1');
@@ -50,9 +50,9 @@ $routes->setAutoRoute(true);
     $routes->get('/uploadArquive', 'Upload::uploadArquive');
     $routes->post('/uploadArquive', 'Upload::to_uploadArquive');
     $routes->get('/success', 'Home::success');
-    $routes->get('/logout', 'Home::logout');
+    $routes->get('/logout', 'Login::logout');
 
-    $routes->resource('submissoes');
+    $routes->resource('submissoes', ['filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------

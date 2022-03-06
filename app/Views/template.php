@@ -16,21 +16,18 @@
     <div class="menu">
         <p>username</p>
         <p><a href="/dashboard" class="header-sair">Inicio</a></p>
-        <p><?= session('user')['nivel'] ? "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>" : '' ?></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>" : '' ?></p>
         <p><a href="/logout" class="header-sair">Sair</a></p>
     </div>
 </div>
 <div class="container mt-4">
-    <?php if (session()->has('success')): ?>
-        <div class="alert alert-success">
-            <?=session()->getFlashdata('success');?>
+    <?php if (session()->has('alert')): ?>
+        <?php $alert = session()->getFlashdata('alert'); ?>
+        <div class="alert alert-<?=key($alert) ?? 'success'?>">
+            <?= $alert[key($alert)] ?? '';?>
         </div>
     <?php endif ?>
-    <?php if (session()->has('danger')): ?>
-        <div class="alert alert-danger">
-            <?=session()->getFlashdata('danger');?>
-        </div>
-    <?php endif ?>
+
     <?php $this->renderSection('content'); ?>
 </div>
 

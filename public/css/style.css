@@ -1,206 +1,333 @@
 body {
-    font-family: "Nunito", Helvetica, Arial, sans-serif;
-    margin: 0;
+  font-family: "Nunito", Helvetica, Arial, sans-serif;
+  margin: 0;
 }
-.formulario{
-    margin-top: 4px;
-    display: grid;
-    flex-wrap: wrap;
-    justify-items: center;
+a {
+  text-decoration: none;
+  color: darkcyan;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+.formulario {
+  margin-top: 4px;
+  display: grid;
+  flex-wrap: wrap;
+  justify-items: center;
 }
 .menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
 }
-.formulario-corpo{
-    background: #2342;
-    padding: 20px;
+.formulario-corpo {
+  background: #2342;
+  padding: 20px;
 }
 .formulario-input {
-    margin-bottom: 10px;
-}
-.formulario-input{
-    display: grid;
-    grid-template-rows: 1fr
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-rows: 1fr;
 }
 .formulario-input .usuario {
-    height: 40px;
-    width: 300px;
+  height: 40px;
+  width: 300px;
 }
 .formulario-input .password {
-    height: 40px;
-    width: 300px;
+  height: 40px;
+  width: 300px;
 }
 
 .formulario-input .usuario:focus {
-    outline-width: 0;
+  outline-width: 0;
 }
 .formulario-input .password:focus {
-    outline-width: 0;
+  outline-width: 0;
 }
 .formulario-input .btnEntrar {
-    height: 40px;
-    width: auto;
-    background: #009E98DB;
-    border: none;
-    color: #ffff;
-    font-weight: bold;
-    cursor: pointer;
+  height: 40px;
+  width: auto;
+  background: #009e98db;
+  border: none;
+  color: #ffff;
+  font-weight: bold;
+  cursor: pointer;
 }
 .formulario-corpo h1 {
-    text-align: center;
+  text-align: center;
 }
 
 /* Restrido */
 .idAcompanhamento {
-    display: none;
+  display: none;
 }
 .header h2 {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 .header {
-    color:#fff;
-    padding: 20px;
-    background-color: #009E98DB;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+  color: #fff;
+  padding: 20px;
+  background-color: #009e98db;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 .header p {
-    margin-left: 2px;
+  margin-left: 2px;
 }
 .header-sair {
-    text-decoration: none;
-    color: #fff;
-    padding: 10px;
-    background: #37918edb;
-    margin-left: 2px;
-    border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+  padding: 10px;
+  background: #37918edb;
+  margin-left: 2px;
+  border-radius: 4px;
 }
 
 .acompanhamento-corpo {
-    max-width: 960px;
-    margin: 0px auto;
+  max-width: 960px;
+  margin: 0px auto;
 }
 .acompanhamento-header-submeter {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.btnEnviarFile{
-    height: 30px;
-    width: 100px;
-    width: auto;
-    background: #009E98DB;
-    border: none;
-    color: #ffff;
-    cursor: pointer;
-    border-radius: 4px;
+.btnEnviarFile {
+  height: 30px;
+  width: 100px;
+  width: auto;
+  background: #009e98db;
+  border: none;
+  color: #ffff;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    border-radius: 4px;
-    margin-bottom: 20px;
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
-td, th {
-    border: 1px solid #009E98DB;
-    text-align: left;
-    text-align: center; 
-    vertical-align: middle;
-    padding: 8px;
+td,
+th {
+  border: 1px solid #009e98db;
+  text-align: left;
+  text-align: center;
+  vertical-align: middle;
+  padding: 8px;
 }
 th {
-    background-color: #009E98DB;
-    color: #FFF;
+  background-color: #009e98db;
+  color: #fff;
 }
 
 tr:hover {
-    background-color: #efefef;
+  background-color: #efefef;
 }
 label {
-    font-weight: bold;
+  font-weight: bold;
 }
-.card-header{
-    margin: 10px;
-    border: 1px solid #e7e7e7;
-    padding: 10px;
-    border-radius: 4px;
+.card-header {
+  margin: 10px;
+  border: 1px solid #e7e7e7;
+  padding: 10px;
+  border-radius: 4px;
 }
-.card-body{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+.card-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
-.card-body p{
-    margin: 10px;
-    border: 1px solid #e7e7e7;
-    padding: 10px;
-    border-radius: 4px;
+.card-body p {
+  margin: 10px;
+  border: 1px solid #e7e7e7;
+  padding: 10px;
+  border-radius: 4px;
 }
-.card-footer a{
-    text-decoration: none;
-    color: #fff;
-    padding: 10px;
-    background: #37918edb;
-    margin: 10px;
-    border-radius: 4px;
-    text-align: center;
+.card-footer a {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px;
+  background: #37918edb;
+  margin: 10px;
+  border-radius: 4px;
+  text-align: center;
 }
 .card-footer {
-    display: grid;
-    max-width: auto;
-    align-items: center;
+  display: grid;
+  max-width: auto;
+  align-items: center;
 }
-.manual{
-    max-width: 960px;
-    margin: 0px auto;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+.manual {
+  max-width: 960px;
+  margin: 0px auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-.item-manual{
-    display: flex;
+.item-manual {
+  display: flex;
 }
 .item-manual img {
-    max-width: 100%;
+  max-width: 100%;
 }
 #tipoTraducao {
-    display: none;
+  display: none;
 }
 
 #tipoRevisao {
-    display: none;
+  display: none;
 }
 
 #nomePeriodicoEvento {
-    display: none;
+  display: none;
 }
-
-
 
 /* -- tela de sucesso -- */
-.card-success{
-    display: flex;
-    justify-content: center;
+.card-success {
+  display: flex;
+  justify-content: center;
 }
+
 .cad-success-item {
-    width: 600px;
-    text-align: center;
-    background: #efefef;
-    border-radius: 4px;
-    margin-top: 20px;
+  width: 600px;
+  text-align: center;
+  background: #efefef;
+  border-radius: 4px;
+  margin-top: 20px;
 }
 .cad-success-item-header {
-    display: inline-block;
-    text-align: center;
+  display: inline-block;
+  text-align: center;
 }
 
 .cad-success-item-header img {
-    width: 100px;
+  width: 100px;
+}
+
+
+/** HELPER */
+.validation-message {
+  color: red;
+  margin-top: 3px;
+  font-size: 0.8em;
+}
+
+.center{
+  text-align: center;
+  margin: 0 auto;
+}
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin: 1rem auto;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  width: 80%;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/** Estilo importado da página de registro */
+.formulario {
+  margin: 80px auto;
+  display: grid;
+  flex-wrap: wrap;
+  justify-items: center;
+}
+.formulario-corpo {
+  background: #2342;
+  padding: 20px;
+  max-width: 980px;
+}
+.formulario-input {
+  word-break: break-all;
+  margin-bottom: 10px;
+}
+label {
+  word-break: normal;
+  width: 100%;
+  font-size: 0.8em;
+}
+.formulario-input .usuario {
+  height: 40px;
+  width: 400px;
+  border: 0.5px solid #2342;
+}
+.formulario-input .tipoVinculo {
+  height: 40px;
+  width: 400px;
+  border: 0.5px solid #2342;
+}
+.formulario-input .password {
+  height: 40px;
+  width: 400px;
+  border: 0.5px solid #2342;
+}
+.formulario-input .ics {
+  height: 40px;
+  width: 400px;
+  border: 0.5px solid #2342;
+}
+.formulario-input .matricula {
+  height: 40px;
+  width: 400px;
+  border: 0.5px solid #2342;
+}
+.formulario-input .finalidade {
+  word-break: break-all;
+  height: 40px;
+  width: 400px;
+  border: 0.5px solid #2342;
+}
+
+.formulario-input .usuario:focus {
+  outline-width: 0;
+}
+.formulario-input .password:focus {
+  outline-width: 0;
+}
+.formulario-input .ics:focus {
+  outline-width: 0;
+}
+.formulario-input .matricula:focus {
+  outline-width: 0;
+}
+.formulario-input .finalidade:focus {
+  outline-width: 0;
+}
+
+/* Restrido */
+
+.header-sair {
+  text-decoration: none;
+  color: #fff;
+  padding: 20px;
+}
+
+.acompanhamento-corpo {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr;
+}
+
+tr:nth-child(even) {
+  background-color: #efefef;
 }

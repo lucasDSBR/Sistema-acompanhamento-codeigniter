@@ -16,7 +16,7 @@ class Createusuarios extends Migration
             ],
             'senha' => [
                 'type' => 'VARCHAR',
-                'constraint' => '40'
+                'constraint' => '255'
             ],
             'email' => [
                 'type' => 'VARCHAR',

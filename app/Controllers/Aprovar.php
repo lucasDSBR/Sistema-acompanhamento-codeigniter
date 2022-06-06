@@ -1,9 +1,17 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\UsuarioModel;
 
 class Aprovar extends BaseController
 {
+    public function index()
+    {
+        $usuarioModel = new UsuarioModel();
+
+        $usuarios = $usuarioModel->where('ativo', 0)->get();
+        return view('aprovar/aprovar');
+    }
     public function aprovar()
     {
         // Tenta se conectar ao servidor MySQL
@@ -47,7 +55,7 @@ class Aprovar extends BaseController
         $_SESSION['UsuariosInativos'] = $arr;
 
         // Redireciona o visitante para dash board
-        return view('aprovar');
+        return view('aprovar/aprovar');
     }
 
     public function detalhesUser($matricula = null)

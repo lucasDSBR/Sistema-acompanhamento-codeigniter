@@ -35,24 +35,25 @@
 			<div class="manual">
 				<span class="item-manual">
 					<div>Enviar</div>
-					<img src="/imgs/upload.svg"/>
+					<img src='<?=base_url() . '/imgs/upload.svg' ?>'/>
 				</span>
 				<span class="item-manual">
 					<div>/ Baixar</div>
-					<img src="/imgs/download.svg"/>
+					<img src='<?=base_url() . '/imgs/download.svg' ?>'/>
 				</span>
                 <span class="item-manual">
 					<div>/ Detalhes</div>
-					<img src="/imgs/visibility.svg"/>
+					<img src='<?=base_url() . '/imgs/visibility.svg' ?>'/>
 				</span>
                 <span class="item-manual">
 					<div>/ Aprovar</div>
-					<img src="/imgs/aprove.svg"/>
+					<img src='<?=base_url() . '/imgs/aprove.svg' ?>'/>
 				</span>
 				<span class="item-manual">
 					<div>/ Cancelar ou Cancelar envio</div>
-					<img src="/imgs/cancel.svg"/>
+					<img src='<?=base_url() . '/imgs/cancel.svg' ?>'/>
 				</span>
+                
 			</div>
         </div>
     </div>

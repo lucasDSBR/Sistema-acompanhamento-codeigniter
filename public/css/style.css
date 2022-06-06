@@ -16,6 +16,24 @@ a {
   flex-wrap: wrap;
   justify-items: center;
 }
+.btn-cancelar {
+  border: none;
+  color: #fff;
+  padding: 10px;
+  width: 15rem;
+  background: #dc2626;
+  border-radius: 4px;
+  margin: 5px;
+}
+.btn-default{
+  border: none;
+  color: #fff;
+  padding: 10px;
+  width: 15rem;
+  background: #0d9488;
+  margin: 5px;
+  border-radius: 4px;
+}
 .menu {
   display: flex;
   flex-wrap: wrap;
@@ -24,6 +42,7 @@ a {
 .formulario-corpo {
   background: #2342;
   padding: 20px;
+  border-radius: 4px;
 }
 .formulario-input {
   margin-bottom: 10px;
@@ -53,6 +72,7 @@ a {
   color: #ffff;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 4px;
 }
 .formulario-corpo h1 {
   text-align: center;
@@ -81,10 +101,11 @@ a {
 .header-sair {
   text-decoration: none;
   color: #fff;
-  padding: 10px;
+  padding: 5px;
   background: #37918edb;
   margin-left: 2px;
   border-radius: 4px;
+  font-size: 13px;
 }
 
 .acompanhamento-corpo {
@@ -259,6 +280,7 @@ label {
 .formulario-input {
   word-break: break-all;
   margin-bottom: 10px;
+  border-radius: 4px;
 }
 label {
   word-break: normal;
@@ -269,32 +291,38 @@ label {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .tipoVinculo {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .password {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .ics {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .matricula {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .finalidade {
   word-break: break-all;
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 
 .formulario-input .usuario:focus {
@@ -330,4 +358,94 @@ label {
 
 tr:nth-child(even) {
   background-color: #efefef;
+}
+
+
+/* ------ PAGINA REVISAR/TRADUZIR ------ */
+
+.traducaoRevisao-textos{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+.traducaoRevisao-textos-campo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.traducaoRevisao-texto{
+  overflow-y: scroll;
+  border: 1px solid #e7e7e7;
+  width: 95%;
+  height: 50%;
+  padding: 5px;
+  margin: 5px;
+}
+.traducaoRevisao-texto::-webkit-scrollbar{
+  width: 5px;
+}
+
+.traducaoRevisao-texto::-webkit-scrollbar-thumb {
+  background-color: #009e98db;
+  border-radius: 4px;
+}
+.traducaoRevisao-texto::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+.traducaoRevisao-texto{
+  height: 30rem;
+}
+.traducaoRevisao-botoes-btn-salvar{
+  border: none;
+  color: #fff;
+  padding: 10px;
+  width: 15rem;
+  background: #37918edb;
+  margin-left: 2px;
+  border-radius: 4px;
+}
+.traducaoRevisao-botoes-btn-cancelar{
+  border: none;
+  color: #fff;
+  padding: 10px;
+  width: 15rem;
+  background: #95190ddb;
+  margin-left: 2px;
+  border-radius: 4px;
+}
+.traducaoRevisao-botoes{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.caixa-text-edicao{
+  border: 1px solid #c1c1c1;
+  width: 40%;
+  height: 5rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px;
+}
+.caixa-text-edicao-input{
+  width: 100%;
+}
+.caixa-text-edicao-input-input{
+  width: 90%;
+  border: 1px solid #c1c1c1;
+  height: 5rem;
+}
+.caixa-text-edicao-input-input:focus{
+  outline: none;
+  width: 90%;
+  border: 1px solid #c1c1c1;
+  height: 5rem;
+}
+.caixa-text-edicao-botoes-btn{
+  background-color: #f0f0f0;
+}
+.caixa-text-edicao-botoes{
+  margin-top: 10px;
 }

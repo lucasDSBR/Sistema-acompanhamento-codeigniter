@@ -35,7 +35,7 @@ body {
 .formulario-input .password:focus {
     outline-width: 0;
 }
-.formulario-input .btnEntrar {
+.formulario-input  {
     height: 40px;
     width: auto;
     background: #009E98DB;
@@ -66,6 +66,13 @@ body {
     text-decoration: none;
     color: #fff;
     padding: 20px;
+}
+.btnVoltar {
+    text-decoration: none;
+    color: #fff;
+    padding: 20px;
+    background-color: #009E98DB;
+    border-radius: 4px;
 }
 
 .acompanhamento-corpo {

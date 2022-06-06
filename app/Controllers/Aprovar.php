@@ -47,7 +47,7 @@ class Aprovar extends BaseController
         $_SESSION['UsuariosInativos'] = $arr;
 
         // Redireciona o visitante para dash board
-        return view('aprovar');
+        return view('aprovar/aprovar');
     }
 
     public function detalhesUser($matricula = null)

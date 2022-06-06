@@ -24,6 +24,7 @@ a {
 .formulario-corpo {
   background: #2342;
   padding: 20px;
+  border-radius: 4px;
 }
 .formulario-input {
   margin-bottom: 10px;
@@ -53,6 +54,7 @@ a {
   color: #ffff;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 4px;
 }
 .formulario-corpo h1 {
   text-align: center;
@@ -259,6 +261,7 @@ label {
 .formulario-input {
   word-break: break-all;
   margin-bottom: 10px;
+  border-radius: 4px;
 }
 label {
   word-break: normal;
@@ -269,32 +272,38 @@ label {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .tipoVinculo {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .password {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .ics {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .matricula {
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 .formulario-input .finalidade {
   word-break: break-all;
   height: 40px;
   width: 400px;
   border: 0.5px solid #2342;
+  border-radius: 4px;
 }
 
 .formulario-input .usuario:focus {

@@ -14,10 +14,9 @@
 <div class="header">
 <h2>Acompanhamento TradUnilab</h2>
     <div class="menu">
-        <p>username</p>
-        <p><a href="/dashboard" class="header-sair">Inicio</a></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/dashboard' class='header-sair'>Inicio</a>" : '' ?></p>
         <p><?= isset(session('user')['nivel']) ? "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>" : '' ?></p>
-        <p><a href="/logout" class="header-sair">Sair</a></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/logout' class='header-sair'>Sair</a>" : '' ?></p>
     </div>
 </div>
 <div class="container mt-4">

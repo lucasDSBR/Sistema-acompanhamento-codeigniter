@@ -1,9 +1,17 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\UsuarioModel;
 
 class Aprovar extends BaseController
 {
+    public function index()
+    {
+        $usuarioModel = new UsuarioModel();
+
+        $usuarios = $usuarioModel->where('ativo', 0)->get();
+        return view('aprovar/aprovar');
+    }
     public function aprovar()
     {
         // Tenta se conectar ao servidor MySQL

@@ -16,6 +16,7 @@
     <div class="menu">
         <p><?= isset(session('user')['nivel']) ? "<a href='/dashboard' class='header-sair'>Inicio</a>" : '' ?></p>
         <p><?= isset(session('user')['nivel']) ? "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>" : '' ?></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/revisarTraduzir' class='header-sair'>Revisar/Traduzir</a>" : '' ?></p>
         <p><?= isset(session('user')['nivel']) ? "<a href='/logout' class='header-sair'>Sair</a>" : '' ?></p>
     </div>
 </div>

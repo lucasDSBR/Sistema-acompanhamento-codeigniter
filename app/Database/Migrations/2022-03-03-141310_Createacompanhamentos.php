@@ -10,6 +10,12 @@ class Createacompanhamentos extends Migration
     {
         $this->forge->addField([
             'id',
+            'titulo' => [
+                'type' => 'VARCHAR',
+                'constraint' => '5000',
+                'null' => true,
+                'default' => NULL
+            ],
             'id_usuario_envio' => [
                 'type' => 'INT',
                 'constraint' => 11

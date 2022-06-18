@@ -420,7 +420,8 @@ tr:nth-child(even) {
 }
 .caixa-text-edicao{
   border: 1px solid #c1c1c1;
-  width: 40%;
+  z-index: 999;
+  width: 90%;
   height: 5rem;
   border-radius: 4px;
   display: flex;
@@ -436,16 +437,22 @@ tr:nth-child(even) {
   width: 90%;
   border: 1px solid #c1c1c1;
   height: 5rem;
+  border-radius: 4px;
 }
 .caixa-text-edicao-input-input:focus{
   outline: none;
   width: 90%;
   border: 1px solid #c1c1c1;
   height: 5rem;
+  border-radius: 4px;
 }
 .caixa-text-edicao-botoes-btn{
   background-color: #f0f0f0;
 }
 .caixa-text-edicao-botoes{
   margin-top: 10px;
+}
+
+.trecho-percorrido {
+  color :#dc2626;
 }

@@ -15,6 +15,7 @@ class AcompanhamentoModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'titulo',
         'id_usuario_envio',
         'id_usuario_analise',
         'data_envio',
@@ -42,9 +43,13 @@ class AcompanhamentoModel extends Model
 
     // Validation
     protected $validationRules      = [
+        'titulo' => [
+            'label' => 'Titulo',
+            'rules' => ''
+        ],
         'id_usuario_envio' => [
             'label' => 'Usuário requerente',
-            'rules' => 'required'
+            'rules' => ''
         ],
         'id_usuario_analise' => [
             'label' => 'Usuário que analisou',
@@ -52,7 +57,7 @@ class AcompanhamentoModel extends Model
         ],
         'data_envio' => [
             'label' => 'Data de envio',
-            'rules' => 'required'
+            // 'rules' => 'required'
         ],
         'data_analise' => [
             'label' => 'Data de análise',
@@ -60,19 +65,19 @@ class AcompanhamentoModel extends Model
         ],
         'pedente' => [
             'label' => 'Pendente',
-            'rules' => 'required'
+            // 'rules' => 'required'
         ],
         'tipoServico' => [
             'label' => 'Tipo de serviço',
-            'rules' => 'required'
+            // 'rules' => 'required'
         ],
         'tipoRevisao' => [
             'label' => 'Tipo de revisão',
-            'rules' => 'required'
+            // 'rules' => 'required'
         ],
         'tipoTraducao' => [
             'label' => 'Tipo de tradução',
-            'rules' => 'required'
+            // 'rules' => 'required'
         ],
         'nomeColabs' => [
             'label' => 'Colaboradores',

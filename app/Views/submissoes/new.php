@@ -42,7 +42,7 @@
                     </div>
                     <div class="formulario-input">
                         <label for="NomeColabs">Nome dos demais colaboradores do artigo</label>
-                        <input type="text" name="NomeColabs" id="NomeColabs" class="usuario"/>
+                        <input type="text" name="nomeColabs" id="NomeColabs" class="usuario"/>
                     </div>
                     <div class="formulario-input">
                         <label for="periodicoOrEvento">Enviar para periódico ou evento?</label>
@@ -62,11 +62,11 @@
                     </div>
                     <div class="formulario-input">
                         <label for="paginas">Efetuar tradução/revisão de quais páginas?</label>
-                        <input type="text" name="paginas" id="paginas" class="usuario" placeholder="ex. 1, 3, 4, 5-9"/>
+                        <input type="text" name="paginas" id="paginas" class="usuario" placeholder="Ex. 1, 3, 4, 5-9"/>
                     </div>
                     <div class="formulario-input">
                         <label for="file">Escolha um arquivo</label>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="3000000000" />
+                        <input type="hidden" value="3000000000" />
                         <input type="file" name="file" id="file" />
                     </div>
                     <div class="formulario-input">

@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\AcompanhamentoModel;
+use App\Controllers\DateTime;
+use DateTime as GlobalDateTime;
 
 class Submissoes extends BaseController
 {
@@ -24,11 +26,20 @@ class Submissoes extends BaseController
 
     public function create()
     {
-        $img = $this->request->getFile('file');
+        $session = session();
+        $userSession = $session->get('user');
+        $file = $this->request->getFile('file');
 
         $fields = $this->request->getPost();
+        $fields['id_usuario_envio'] = intval($userSession['id']);
+        $fields['status'] = 0;
+        $fields['tipoServico'] = intval($fields['tipoServico']);
+        $fields['tipoTraducao'] = intval($fields['tipoTraducao']);
+        $fields['tipoRevisao'] = intval($fields['tipoRevisao']);
+        $fields['periodicoOrEvento'] = intval($fields['periodicoOrEvento']);
 
-        if($this->model->insert($fields))
+        $ok = $this->model->insert($fields);
+        if($ok)
             return redirect()->to('dashboard');
 
         $errors = $this->model->validation->getErrors();

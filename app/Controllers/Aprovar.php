@@ -5,138 +5,66 @@ use App\Models\UsuarioModel;
 
 class Aprovar extends BaseController
 {
+    public function __construct()
+    {
+        $this->model = new UsuarioModel();
+    }
     public function index()
     {
         $usuarioModel = new UsuarioModel();
 
-        $usuarios = $usuarioModel->where('ativo', 0)->get();
-        return view('aprovar/aprovar');
+        $data['usuariosInativos'] = $usuarioModel->where('ativo', 0)->findAll();
+        return view('aprovar/aprovar', $data);
     }
-    public function aprovar()
+    public function aprovar($id)
     {
-        // Tenta se conectar ao servidor MySQL
-        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
-        // Tenta se conectar a um banco de dados MySQL
-        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
-
-        $sql_usuariosInativos = "SELECT * FROM `usuarios`WHERE (`ativo` = 0)";
-        $query_usuariosInativos = mysqli_query($conexao, $sql_usuariosInativos);
-
-        $arr = array();
-        if (!$query_usuariosInativos) {
-            $mensagem_erro  = 'Erro de sintaxe na query: '.mysqli_error($conexao)."<br>";
-            $destino = 'index.php?msg='.$mensagem_erro;
-            header("Location: $destino");
-            exit;
-        }
-
-        while($row = mysqli_fetch_assoc($query_usuariosInativos)){
-            $obj = array(
-                'id' => $row['id'], 
-                'nome' => $row['nome'], 
-                'email' => $row['email'], 
-                'nivel' => $row['nivel'], 
-                'ativo' => $row['ativo'], 
-                'data_cadastro' => $row['data_cadastro'],
-                'cpf' => $row['cpf'],
-                'ics' => $row['ics'], 
-                'matricula' => $row['matricula'],
-                'comprovante' => $row['comprovante'],
-                'finalidade' => $row['finalidade']
-            );
-            $arr[] = $obj;
-        }
-
-
-        // Se a sessão não existir, inicia uma
-        if (!isset($_SESSION)) session_start();
-
-        // Salva os dados encontrados na sessão
-        $_SESSION['UsuariosInativos'] = $arr;
-
-        // Redireciona o visitante para dash board
+        $idUser = $id;
         return view('aprovar/aprovar');
     }
 
     public function detalhesUser($matricula = null)
     {
-        // Tenta se conectar ao servidor MySQL
-        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
-        // Tenta se conectar a um banco de dados MySQL
-        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
-
-        $sql_usuariosInativos = "SELECT * FROM `usuarios`WHERE (`matricula` = $matricula)";
-        $query_usuariosInativos = mysqli_query($conexao, $sql_usuariosInativos);
-
-        $arr = array();
-        if (!$query_usuariosInativos) {
-            $mensagem_erro  = 'Erro de sintaxe na query: '.mysqli_error($conexao)."<br>";
-            $destino = 'index.php?msg='.$mensagem_erro;
-            header("Location: $destino");
-            exit;
-        }
-
-        while($row = mysqli_fetch_assoc($query_usuariosInativos)){
-            $obj = array(
-                'id' => $row['id'], 
-                'nome' => $row['nome'], 
-                'email' => $row['email'], 
-                'nivel' => $row['nivel'], 
-                'ativo' => $row['ativo'], 
-                'data_cadastro' => $row['data_cadastro'],
-                'cpf' => $row['cpf'],
-                'ics' => $row['ics'], 
-                'matricula' => $row['matricula'],
-                'comprovante' => $row['comprovante'],
-                'finalidade' => $row['finalidade']
-            );
-            $arr[] = $obj;
-        }
-
-
-        // Se a sessão não existir, inicia uma
-        if (!isset($_SESSION)) session_start();
-
-        // Salva os dados encontrados na sessão
-        $_SESSION['DetalheUser'] = $arr;
-
+        $usuarioModel = new UsuarioModel();
+        $data['usuario'] = $usuarioModel->where('matricula', $matricula)->first();
         // Redireciona o visitante para dash board
-        return view('detalhesUserId');
+        return view('detalhesUser/detalhesUserId', $data);
     }
 
     function aprovarUser($matriculaUser = null)
     {
-        //Iniciando conexao e enviadno atualização
-        // Tenta se conectar ao servidor MySQL
-        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
-        // Tenta se conectar a um banco de dados MySQL
-        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
-
-        $matricula = mysqli_real_escape_string($conexao, $matriculaUser);
-        // Validação do usuário/senha digitados
-        $sql = "SELECT * FROM `usuarios` WHERE (`matricula` = '".$matricula."');";
-        $query = mysqli_query($conexao, $sql);
-        $row = mysqli_fetch_assoc($query);
-        $sqlUpdate = "UPDATE `usuarios` SET `ativo` = 1 WHERE (`matricula` = $matricula);";
-        mysqli_query($conexao, $sqlUpdate);
-        header("Location: /aprovar"); exit;
+        $usuarioModel = new UsuarioModel();
+        $usuario = $usuarioModel->where('matricula', $matriculaUser)->first();
+        $usuario['ativo'] = "1";
+        
+        if(!$usuarioModel->save($usuario)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('alert', ['danger' => 'Erro ao aprovar usuário']);
+        }else{
+            //header("Location: /aprovar"); exit;
+            return redirect()->back()
+                ->withInput()
+                ->with('alert', ['success' => 'Usuario aprovado com sucesso!']);
+        }
+        
     }
 
     function reprovarUser($matriculaUser = null)
     {
-        //Iniciando conexao e enviadno atualização
-        // Tenta se conectar ao servidor MySQL
-        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
-        // Tenta se conectar a um banco de dados MySQL
-        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
-
-        $matricula = mysqli_real_escape_string($conexao, $matriculaUser);
-        // Validação do usuário/senha digitados
-        $sql = "SELECT * FROM `usuarios` WHERE (`matricula` = '".$matricula."');";
-        $query = mysqli_query($conexao, $sql);
-        $row = mysqli_fetch_assoc($query);
-        $sqlUpdate = "DELETE FROM `usuarios` WHERE (`matricula` = $matricula);";
-        mysqli_query($conexao, $sqlUpdate);
-        header("Location: /aprovar"); exit;
+        $usuarioModel = new UsuarioModel();
+        $usuario = $usuarioModel->where('matricula', $matriculaUser)->first();
+        $usuario['ativo'] = "0";
+        
+        if(!$usuarioModel->save($usuario)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('alert', ['danger' => 'Erro ao aprovar usuário']);
+                
+        }else{
+            //header("Location: /aprovar"); exit;
+            return redirect()->back()
+                ->withInput()
+                ->with('alert', ['success' => 'Usuário reprovado com sucesso !']);
+        }
     }
 }

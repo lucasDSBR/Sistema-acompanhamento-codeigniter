@@ -40,7 +40,6 @@ $routes->setAutoRoute(true);
     $routes->get('/uploadResult/(:segment)', 'Upload::uploadResult/$1');
     $routes->get('/cancelUploadResult/(:segment)', 'Upload::cancelUploadResult/$1');
     $routes->get('/cancelUploadArquive/(:segment)', 'Upload::cancelUploadArquive/$1');
-    $routes->post('uploadResult', 'Upload::to_uploadResult');
     $routes->get('/uploadArquive', 'Upload::uploadArquive');
     $routes->post('/uploadArquive', 'Upload::to_uploadArquive');
     $routes->get('/aprovar', 'Aprovar::index');

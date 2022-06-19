@@ -12,13 +12,13 @@ class Createacompanhamentos extends Migration
             'id',
             'titulo' => [
                 'type' => 'VARCHAR',
-                'constraint' => '5000',
+                'constraint' => 300,
                 'null' => true,
                 'default' => NULL
             ],
             'id_usuario_envio' => [
                 'type' => 'INT',
-                'constraint' => 11
+                'constraint' => 100
             ],
             'id_usuario_analise' => [
                 'type' => 'INT',
@@ -27,31 +27,43 @@ class Createacompanhamentos extends Migration
                 'default' => NULL
             ],
             'data_envio' => [
-                'type' => 'datetime'
+                'type' => 'datetime',
+                'null' => true,
+                'default' => NULL
             ],
             'data_analise' => [
                 'type' => 'datetime',
-                'null' => true
+                'null' => true,
+                'null' => true,
+                'default' => NULL
             ],
             'pendente' => [
                 'type' => 'int',
-                'constraint' => 1
+                'constraint' => 1,
+                'null' => true,
+                'default' => NULL
             ],
             'tipoServico' => [
                 'type' => 'int',
-                'constraint' => 1
+                'constraint' => 1,
+                'null' => true,
+                'default' => NULL
             ],
             'tipoRevisao' => [
                 'type' => 'int',
-                'constraint' => 1
+                'constraint' => 1,
+                'null' => true,
+                'default' => NULL
             ],
             'tipoTraducao' => [
                 'type' => 'int',
-                'constraint' => 1
+                'constraint' => 1,
+                'null' => true,
+                'default' => NULL
             ],
             'nomeColabs' => [
                 'type' => 'VARCHAR',
-                'constraint' => '5000',
+                'constraint' => 5000,
                 'null' => true,
                 'default' => NULL
             ],
@@ -90,6 +102,7 @@ class Createacompanhamentos extends Migration
                 'null' => true,
                 'default' => null
             ]
+            
         ]);
         $this->forge->createTable('acompanhamentos');
     }

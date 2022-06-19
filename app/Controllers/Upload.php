@@ -1,38 +1,51 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\AcompanhamentoModel;
+use \DateTime;
 
 class Upload extends BaseController
 {
+    public function __construct()
+    {
+        $this->model = new AcompanhamentoModel();
+    }
     public function uploadResult($id = null)
     {
-        return view('uploadResult');
+        $data['idAcompanhamento'] = $id;
+        return view('uploadResultado/uploadResult', $data);
     }
     public function to_uploadResult()
     {
-        $targetfolder = "./resultados/";
-        $targetfolder = $targetfolder.$_POST['idAcompanhamento']."_".date("Y-m-d")."_".date("H-i-s").".pdf" ;
-       
-        if(move_uploaded_file($_FILES['file']['tmp_name'], $targetfolder)){
-            $path = basename($_POST['idAcompanhamento']."_".date("Y-m-d")."_".date("H-i-s"));
+        $acompanhamentoModel = new AcompanhamentoModel();
+        
+        $data = new DateTime();
+        $fields = $this->request->getPost();
+        $file = $this->request->getFile('file');
+        $acompanhamento = $acompanhamentoModel->where('id', $fields['idAcompanhamento'])->first();
 
-
-            //Iniciando conexao e enviadno atualização
-            // Tenta se conectar ao servidor MySQL
-            $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
-            // Tenta se conectar a um banco de dados MySQL
-            mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
-
-            $id_acompanhamento = mysqli_real_escape_string($conexao, $_POST['idAcompanhamento']);
-            // Validação do usuário/senha digitados
-            $sql = "UPDATE `acompanhamentos` SET `pathResultado`='$path', `data_analise`= NOW(), `status`= 3  WHERE (`id` = '".$id_acompanhamento ."');";
-
-            mysqli_query($conexao, $sql);
-            header("Location: /success"); exit;
-
+        $acompanhamento['data_analise'] = $data->format('Y-m-d H:i:s');
+        //Tentando gravar arquivo na pasta
+        $teste = $acompanhamentoModel->save($acompanhamento);
+        if(!false) {
+            return redirect()->back()
+                ->withInput()
+                ->with('alert', ['danger' => 'Erro ao enviar resultado']);
+                
+        }else{
+            //header("Location: /aprovar"); exit;
+            return redirect()->back()
+                ->withInput()
+                ->with('alert', ['success' => 'Resultado enviado com sucesso']);
         }
-        else {
-            echo "Erro ao enviar o resultado";
+        if (!$file->hasMoved()) {
+            $filepath = 'resultados/';
+            $acompanhamento['pathResultado'] = $filepath.$fields['idAcompanhamento'].'/'.$file->getName();
+            $file->move($filepath.$fields['idAcompanhamento'].'/');
+        }else{
+            return redirect()->back()
+                ->withInput()
+                ->with('alert', ['danger' => 'Erro ao enviar resultado']);
         }
     }
 

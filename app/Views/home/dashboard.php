@@ -5,7 +5,6 @@
 
     <div class="acompanhamento-corpo">
         <div class="acompanhamento-header-submeter">
-			<h4><?= $titulo; ?></h4>
             <div>
                 <a href="<?=base_url(). '/submissoes/new'?>"  class="header-sair">Enviar arquivo para análise </a>
             </div> 
@@ -23,11 +22,11 @@
 						
                         foreach ($submissoes as $item) {
                             echo '<tr>
-                            <td>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? "Você" : $item['id_usuario_envio']).'</td>
+                            <td>'.($item['id_usuario_envio'] == isset(session('user')['id']) ? "Você" : $item['id_usuario_envio']).'</td>
 							<td>'.$item['id'].'</td>
                             <td>'.($item['status'] == 0 ? "Submetido" : ($item['status'] == 1 ?  "Em análise pelos modelos de Inteligência Artificial": ($item['status'] == 2 ? "Em análise pelo(s) colaborador(es)" : ($item['status'] == 3 ? "Resultado Diponível" : " --- ")))).'</td>
-                            <td><a href="/arquivoParaAnalise/'.$item['arquivo'].'.pdf"  download><img src="/imgs/download.svg"/></a>'.($item['id_usuario_envio'] == $_SESSION['UsuarioMatricula'] ? '<a href="/cancelUploadArquive/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : "").'</td>
-                            <td>'.($item['resultado'] == "" ? ($_SESSION['UsuarioNivel'] == 1 ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : ($_SESSION['UsuarioNivel'] == 1 ? '<a href="./resultados/'.$item['resultado'].'.pdf" download="./resultados/'.$item['resultado'].'"><img src="/imgs/download.svg"/></a> <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['resultado'].'.pdf" download="./resultados/'.$item['resultado'].'"><img src="/imgs/download.svg"/></a>')).'</td>
+                            <td><a href="'.$item['pathArquivo'].'"  download><img src="/imgs/download.svg"/></a>'.($item['id_usuario_envio'] == isset(session('user')['id']) ? '<a href="/cancelUploadArquive/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : "").'</td>
+                            <td>'.($item['pathResultado'] == "" ? (isset(session('user')['nivel']) == 1 ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : (isset(session('user')['nivel']) == 1 ? '<a href="./resultados/'.$item['pathResultado'].'.pdf" download="./resultados/'.$item['pathResultado'].'"><img src="/imgs/download.svg"/></a> <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['pathResultado'].'.pdf" download="./resultados/'.$item['pathResultado'].'"><img src="/imgs/download.svg"/></a>')).'</td>
                             </tr>';
                         }
                     ?>

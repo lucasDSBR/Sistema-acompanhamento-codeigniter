@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-
+use App\Models\AcompanhamentoModel;
 class Home extends BaseController
 {
     public function index()
@@ -11,10 +11,9 @@ class Home extends BaseController
     public function dashboard()
     {
         
-        $data = [
-            'titulo' => 'Titulo desejado',
-            'submissoes' => []
-        ];
+        $acompanhamento = new AcompanhamentoModel();
+
+        $data['submissoes'] = $acompanhamento->findAll();
         return view('home/dashboard', $data);
 
     }

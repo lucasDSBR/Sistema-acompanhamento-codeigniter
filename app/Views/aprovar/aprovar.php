@@ -2,9 +2,6 @@
 
 <?php $this->section('content'); ?>
 <div class="acompanhamento-corpo">
-    <div class="acompanhamento-corpo-corpo">
-        <p><a href="/dashboard" class="header-sair">Voltar</a></p>
-    </div>
     <div class="acompanhamento-header-submeter">
         <div>
             <h4>Tabela de Usuários aguardando aprovação:</h4>
@@ -27,7 +24,7 @@
                         echo '<tr>
                         <td>'.$item['nome'].'</td>
                         <td>'.$item['matricula'].'</td>
-                        <td>'.($item['comprovante'] != ""? '<a href="'.$item['comprovante'].'"><img src="/imgs/download.svg"/></a>' : "Não informado").'</td>
+                        <td>'.($item['comprovante'] != ""? '<a href="'.$item['comprovante'].'" download><img src="/imgs/download.svg"/></a>' : "Não informado").'</td>
                         <td><a href="/detalhesUserId/'.$item['matricula'].'"><img src="/imgs/visibility.svg"/></a> | <a href="aprovarUser/'.$item['matricula'].'"><img src="/imgs/aprove.svg"/></a> | <a href="reprovarUser/'.$item['matricula'].'"><img src="/imgs/cancel.svg"/></a></td>
                         </tr>';
                     }

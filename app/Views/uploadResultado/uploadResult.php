@@ -5,10 +5,9 @@
 <body>
 
     <div class="acompanhamento-corpo">
-		<div class="acompanhamento-corpo-corpo">
-            <p><a href="/dashboard" class="header-sair">Voltar</a></p>
-        </div>
-        <div class="acompanhamento-corpo-header">
+        <div>
+            <h4>Selecione o arquivo com o resultado da análise para enviar:</h4>
+            <span>Os resultados são enviados e disponibilizados ao usuário que requisitou a análise.</span>
         </div>
         <div class="acompanhamento-corpo-corpo">
             <form enctype="multipart/form-data" action="/uploadResult" class="formulario"  method='POST'>

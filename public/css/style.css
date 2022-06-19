@@ -30,15 +30,54 @@ a {
   color: #fff;
   padding: 10px;
   width: 15rem;
-  background: #0d9488;
+  background: #009e98db;
   margin: 5px;
   border-radius: 4px;
+}
+
+/* -------- HEADER -------- */
+.header h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+.header {
+  color: #fff;
+  padding: 20px;
+  background-color: #009e98db;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 0px 10px #333;
+}
+.header p {
+  margin-left: 2px;
+}
+.header-btn {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px;
+  margin-left: 2px;
+  font-size: 13px;
+}
+.header-btn:hover {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px;
+  margin-left: 2px;
+  font-size: 13px;
+  border-bottom: 1px solid #e7e7e7;
 }
 .menu {
   display: flex;
   flex-wrap: wrap;
   justify-items: center;
 }
+
+/* -------- FIM HEADER -------- */
+
+
 .formulario-corpo {
   background: #2342;
   padding: 20px;
@@ -82,40 +121,17 @@ a {
 .idAcompanhamento {
   display: none;
 }
-.header h2 {
-  margin: 0;
-  padding: 0;
-}
-.header {
-  color: #fff;
-  padding: 20px;
-  background-color: #009e98db;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-}
-.header p {
-  margin-left: 2px;
-}
-.header-sair {
-  text-decoration: none;
-  color: #fff;
-  padding: 5px;
-  background: #37918edb;
-  margin-left: 2px;
-  border-radius: 4px;
-  font-size: 13px;
-}
+
 
 .acompanhamento-corpo {
   max-width: 960px;
   margin: 0px auto;
+  padding-top: 20px;
 }
 .acompanhamento-header-submeter {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 .btnEnviarFile {
   height: 30px;
@@ -138,7 +154,7 @@ table {
 
 td,
 th {
-  border: 1px solid #009e98db;
+  border-bottom: 1px solid #009e98db;
   text-align: left;
   text-align: center;
   vertical-align: middle;
@@ -267,7 +283,7 @@ label {
 
 /** Estilo importado da página de registro */
 .formulario {
-  margin: 80px auto;
+  margin: 20px auto;
   display: grid;
   flex-wrap: wrap;
   justify-items: center;

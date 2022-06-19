@@ -4,10 +4,9 @@
 <?php $this->section('content'); ?>
 
     <div class="acompanhamento-corpo">
-        <div class="acompanhamento-header-submeter">
-            <div>
-                <a href="<?=base_url(). '/submissoes/new'?>"  class="header-sair">Enviar arquivo para análise </a>
-            </div> 
+        
+        <div>
+            <h4>Tabela de projetos submetidos por você ou por outros usuários:</h4>
         </div>
         <div class="acompanhamento-corpo-corpo">
             <table>
@@ -26,7 +25,7 @@
 							<td>'.$item['id'].'</td>
                             <td>'.($item['status'] == 0 ? "Submetido" : ($item['status'] == 1 ?  "Em análise pelos modelos de Inteligência Artificial": ($item['status'] == 2 ? "Em análise pelo(s) colaborador(es)" : ($item['status'] == 3 ? "Resultado Diponível" : " --- ")))).'</td>
                             <td><a href="'.$item['pathArquivo'].'"  download><img src="/imgs/download.svg"/></a>'.($item['id_usuario_envio'] == isset(session('user')['id']) ? '<a href="/cancelUploadArquive/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : "").'</td>
-                            <td>'.($item['pathResultado'] == "" ? (isset(session('user')['nivel']) == 1 ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : (isset(session('user')['nivel']) == 1 ? '<a href="./resultados/'.$item['pathResultado'].'.pdf" download="./resultados/'.$item['pathResultado'].'"><img src="/imgs/download.svg"/></a> <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['pathResultado'].'.pdf" download="./resultados/'.$item['pathResultado'].'"><img src="/imgs/download.svg"/></a>')).'</td>
+                            <td>'.($item['pathResultado'] == "" ? (isset(session('user')['id']) == $item['id_usuario_envio'] ? '<a href="uploadResult/'.$item['id'].'"><img src="/imgs/upload.svg"/></a>' : "Sem resultado") : (isset(session('user')['nivel']) == 1 ? '<a href="./resultados/'.$item['pathResultado'].'.pdf" download="./resultados/'.$item['pathResultado'].'"><img src="/imgs/download.svg"/></a> <a href="/cancelUploadResult/'.$item['id'].'"><img src="/imgs/cancel.svg"/></a>' : '<a href="./resultados/'.$item['pathResultado'].'.pdf" download="./resultados/'.$item['pathResultado'].'"><img src="/imgs/download.svg"/></a>')).'</td>
                             </tr>';
                         }
                     ?>

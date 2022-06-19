@@ -14,13 +14,14 @@
 <div class="header">
 <h2>Acompanhamento TradUnilab</h2>
     <div class="menu">
-        <p><?= isset(session('user')['nivel']) ? "<a href='/dashboard' class='header-sair'>Inicio</a>" : '' ?></p>
-        <p><?= isset(session('user')['nivel']) ? "<a href='/aprovar' class='header-sair'>Aprovar Usuarios</a>" : '' ?></p>
-        <p><?= isset(session('user')['nivel']) ? "<a href='/revisarTraduzir' class='header-sair'>Revisar/Traduzir</a>" : '' ?></p>
-        <p><?= isset(session('user')['nivel']) ? "<a href='/logout' class='header-sair'>Sair</a>" : '' ?></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/dashboard' class='header-btn'>Inicio</a>" : '' ?></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/aprovar' class='header-btn'>Aprovar Usuarios</a>" : '' ?></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/revisarTraduzir' class='header-btn'>Revisar/Traduzir</a>" : '' ?></p>
+        <p><?= isset(session('user')['nivel']) ? "<a href='/logout' class='header-btn'>Sair</a>" : '' ?></p>
     </div>
 </div>
 <div class="container mt-4">
+<h4>Olá <?php echo session('user')['nome']?> 😀</h4>
     <?php if (session()->has('alert')): ?>
         <?php $alert = session()->getFlashdata('alert'); ?>
         <div class="alert alert-<?=key($alert) ?? 'success'?>">

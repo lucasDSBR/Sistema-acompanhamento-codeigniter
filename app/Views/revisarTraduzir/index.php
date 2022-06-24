@@ -2,8 +2,8 @@
 <link rel='stylesheet' type='text/css' href='<?=base_url() . '/css/login.css' ?>'>
 
 <?php $this->section('content'); ?>
-<script type="module" src='<?=base_url() . '/js/textoTraduzido.js' ?>'></script>
 <div class="container">
+    <input type="file" onchange="carregarArquivoUsuario(this.files[0])">
     <div class="traducaoRevisao-dados-texto">
         <p>Dados do texto aqui</p>
     </div>
@@ -11,45 +11,23 @@
         <div class="traducaoRevisao-textos-campo">
             <h2>Texto Original</h2>
             <div class="traducaoRevisao-texto">
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p> 
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
+                <p id="output-user"></p>
             </div>
         </div>
+        
         <div class="traducaoRevisao-textos-campo">
             <h2>Texto Traduzido</h2>
-            <div class="traducaoRevisao-texto">
-                
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p> 
-                <p>Lorem ipsum dolor, <span class="trecho-percorrido">sit amet consectetur adipisicing elit.</span> Rem inventore maiores quae id suscipit voluptates. Odio provident aliquid temporibus corporis explicabo libero esse?</p>
-                
-            </div>
-            <div class="caixa-text-edicao">
-                    <input type="text" class="caixa-text-edicao-input-input"/>
-                    <div class="caixa-text-edicao-botoes">
-                        <img src='<?=base_url() . '/imgs/keyboard_double_arrow_left_FILL0_wght400_GRAD0_opsz48.svg' ?>' width="25" class="caixa-text-edicao-botoes-btn"/>
-                        <img src='<?=base_url() . '/imgs/keyboard_double_arrow_right_FILL0_wght400_GRAD0_opsz48.svg' ?>' width="25" class="caixa-text-edicao-botoes-btn"/>
-                    </div>
+            <h3 class="alerta" id="alerta"></h3>
+            <!-- <div class="traducaoRevisao-texto">
+                <p id="output-system"></p>
+            </div> -->
+            <!-- <div class="caixa-text-edicao">
+                <input type="text" class="caixa-text-edicao-input-input"/>
+                <div class="caixa-text-edicao-botoes">
+                    <img src='<?=base_url() . '/imgs/keyboard_double_arrow_left_FILL0_wght400_GRAD0_opsz48.svg' ?>' width="25" class="caixa-text-edicao-botoes-btn"/>
+                    <img src='<?=base_url() . '/imgs/keyboard_double_arrow_right_FILL0_wght400_GRAD0_opsz48.svg' ?>' width="25" class="caixa-text-edicao-botoes-btn"/>
                 </div>
+            </div> -->
         </div>
     </div>
     <div class="traducaoRevisao-botoes">
@@ -58,5 +36,24 @@
     </div>
     
 </div>
+<script>
+    var dataText = "";
+    if(dataText == ""){
+        document.getElementById("alerta").textContent = "Nenhum arquivo submetido ainda.";
+    } 
+    async function carregarArquivoUsuario(file) {
+        dataText = await file.text();
+        document.getElementById('output-user').textContent = dataText;
+        enviarArquivosApiTraducao(file);
+    }
 
+    async function enviarArquivosApiTraducao(file) {
+        document.getElementById("alerta").textContent = "Enviando arquivo para o servidor... Aguarde...";
+
+        var formD = new FormData()
+        formD.append('file', file)
+        const response = await fetch('http://127.0.0.1:8000/translate/upload', { method: 'POST', body: formD });
+        const data = await response.json();
+    }
+</script>
 <?php $this->endSection(); ?>

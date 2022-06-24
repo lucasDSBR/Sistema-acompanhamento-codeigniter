@@ -21,7 +21,6 @@
     </div>
 </div>
 <div class="container mt-4">
-<h4>Olá <?php echo session('user')['nome']?> 😀</h4>
     <?php if (session()->has('alert')): ?>
         <?php $alert = session()->getFlashdata('alert'); ?>
         <div class="alert alert-<?=key($alert) ?? 'success'?>">

@@ -4,8 +4,10 @@
 <?php $this->section('content'); ?>
 
     <div class="acompanhamento-corpo">
-        
         <div>
+            <div>
+                <a href="<?=base_url(). '/submissoes/new'?>"  class="btn-default">Enviar arquivo para análise </a>
+            </div> 
             <h4>Tabela de projetos submetidos por você ou por outros usuários:</h4>
         </div>
         <div class="acompanhamento-corpo-corpo">

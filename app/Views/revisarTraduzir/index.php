@@ -7,20 +7,20 @@
     <div class="traducaoRevisao-dados-texto">
         <p>Dados do texto aqui</p>
     </div>
+    <h3 class="alerta" id="alerta"></h3>
     <div class="traducaoRevisao-textos">
         <div class="traducaoRevisao-textos-campo">
             <h2>Texto Original</h2>
-            <div class="traducaoRevisao-texto">
+            <div class="traducaoRevisao-texto" id="textoOriginal">
                 <p id="output-user"></p>
             </div>
         </div>
         
         <div class="traducaoRevisao-textos-campo">
             <h2>Texto Traduzido</h2>
-            <h3 class="alerta" id="alerta"></h3>
-            <!-- <div class="traducaoRevisao-texto">
+            <div class="traducaoRevisao-texto" id="textoTraduzido">
                 <p id="output-system"></p>
-            </div> -->
+            </div>
             <!-- <div class="caixa-text-edicao">
                 <input type="text" class="caixa-text-edicao-input-input"/>
                 <div class="caixa-text-edicao-botoes">
@@ -39,21 +39,34 @@
 <script>
     var dataText = "";
     if(dataText == ""){
+        document.getElementById("textoTraduzido").classList.add("inativo");
+        document.getElementById("textoOriginal").classList.add("inativo");
         document.getElementById("alerta").textContent = "Nenhum arquivo submetido ainda.";
     } 
-    async function carregarArquivoUsuario(file) {
+    async function carregarArquivoUsuario(file){
         dataText = await file.text();
-        document.getElementById('output-user').textContent = dataText;
-        enviarArquivosApiTraducao(file);
+        if(dataText !== ""){
+            document.getElementById("textoOriginal").classList.remove("inativo");
+            document.getElementById('output-user').textContent = dataText;
+            enviarArquivosApiTraducao(file);
+        }
     }
 
-    async function enviarArquivosApiTraducao(file) {
+    async function enviarArquivosApiTraducao(file){
         document.getElementById("alerta").textContent = "Enviando arquivo para o servidor... Aguarde...";
-
-        var formD = new FormData()
-        formD.append('file', file)
+        var formD = new FormData();
+        formD.append('file', file);
         const response = await fetch('http://127.0.0.1:8000/translate/upload', { method: 'POST', body: formD });
         const data = await response.json();
+        if(data){
+            textoTraduzido = ""
+            data.forEach(element => {
+                textoTraduzido += element+" "
+            });
+            document.getElementById("textoTraduzido").classList.remove("inativo");
+            document.getElementById("alerta").classList.add("inativo");
+            document.getElementById("output-system").textContent = textoTraduzido
+        }
     }
 </script>
 <?php $this->endSection(); ?>

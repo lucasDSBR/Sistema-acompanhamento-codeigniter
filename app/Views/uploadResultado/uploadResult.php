@@ -10,7 +10,7 @@
             <span>Os resultados são enviados e disponibilizados ao usuário que requisitou a análise.</span>
         </div>
         <div class="acompanhamento-corpo-corpo">
-            <form enctype="multipart/form-data" action="/uploadResult" class="formulario"  method='POST'>
+            <form enctype="multipart/form-data" action="<?=base_url().'/uploadResult' ?>" class="formulario"  method='POST'>
                 
                 <div class="formulario-corpo">
                     <h1>Enviar Resultado</h1>
@@ -19,8 +19,8 @@
                     </div>
                     <div class="formulario-input">
                         <label for="file">Escolha um arquivo</label>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="3000000000" />
-                        <input type="file"  name="file" id="file" />
+                        <input type="hidden" value="3000000000" />
+                        <input type="file" name="file" id="file" />
                     </div>
                     <div class="formulario-input">
                         <input type="submit" value="Enviar" class="btnEntrar" />

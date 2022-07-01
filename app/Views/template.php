@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="header">
-<h2>Acompanhamento TradUnilab</h2>
+    <h2>Acompanhamento TradUnilab</h2>
     <div class="menu">
         <p><?= isset(session('user')['nivel']) ? "<a href='/dashboard' class='header-btn'>Inicio</a>" : '' ?></p>
         <p><?= isset(session('user')['nivel']) ? "<a href='/aprovar' class='header-btn'>Aprovar Usuarios</a>" : '' ?></p>
@@ -21,6 +21,7 @@
     </div>
 </div>
 <div class="container mt-4">
+
     <?php if (session()->has('alert')): ?>
         <?php $alert = session()->getFlashdata('alert'); ?>
         <div class="alert alert-<?=key($alert) ?? 'success'?>">

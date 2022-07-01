@@ -6,6 +6,8 @@ use \DateTime;
 
 class Upload extends BaseController
 {
+    private $maxFileUpload = 2048;
+    private $extensionsPermited = ['pdf'];
     public function __construct()
     {
         $this->model = new AcompanhamentoModel();
@@ -17,81 +19,84 @@ class Upload extends BaseController
     }
     public function to_uploadResult()
     {
-        $acompanhamentoModel = new AcompanhamentoModel();
-        
+        $acompanhamento = new AcompanhamentoModel();
+        //Validando arquivo enviado
+        $file = $this->request->getFile('file');
+
+        $fileError = $file->getError();
+
+        if($fileError <> 0 )
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', ['file' => 'errro']);
+
+        $fileExtensionClient = $file->guessExtension();
+        if(!in_array($fileExtensionClient, $this->extensionsPermited ))
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', ['file' => 'Extensão não permitida para o arquivo']);
+
+        if((int)$file->getSizeByUnit('kb') > $this->maxFileUpload)
+            return redirect()->back()
+                ->withInput()
+                ->with('errors', ['file' => 'Arquivo maior do que o permitido']);
+
+
+        $session = session();
+        $userSession = $session->get('user');
+        $file = $this->request->getFile('file');
         $data = new DateTime();
         $fields = $this->request->getPost();
-        $file = $this->request->getFile('file');
-        $acompanhamento = $acompanhamentoModel->where('id', $fields['idAcompanhamento'])->first();
-
-        $acompanhamento['data_analise'] = $data->format('Y-m-d H:i:s');
         //Tentando gravar arquivo na pasta
-        $teste = $acompanhamentoModel->save($acompanhamento);
-        if(!false) {
-            return redirect()->back()
-                ->withInput()
-                ->with('alert', ['danger' => 'Erro ao enviar resultado']);
-                
-        }else{
-            //header("Location: /aprovar"); exit;
-            return redirect()->back()
-                ->withInput()
-                ->with('alert', ['success' => 'Resultado enviado com sucesso']);
-        }
         if (!$file->hasMoved()) {
             $filepath = 'resultados/';
-            $acompanhamento['pathResultado'] = $filepath.$fields['idAcompanhamento'].'/'.$file->getName();
-            $file->move($filepath.$fields['idAcompanhamento'].'/');
-        }else{
-            return redirect()->back()
-                ->withInput()
-                ->with('alert', ['danger' => 'Erro ao enviar resultado']);
+            $fields['pathResultado'] = $filepath.$userSession['id'].'/'.$file->getName();
+            $file->move($filepath.$userSession['id'].'/');
+            
+            $dataAcompanhamento = [
+                'data_analise' => $data->format('Y-m-d H:i:s'),
+                'status' => 3,
+                'pendente' => "0",
+                'id_usuario_analise' => intval($userSession['id']),
+                'pathResultado' => $filepath.$userSession['id'].'/'.$file->getName(),
+            ];
+            if($acompanhamento->update($fields['idAcompanhamento'], $dataAcompanhamento))
+                return redirect()->to('dashboard');
         }
+
+        $errors = $this->model->validation->getErrors();
+        return redirect()->to('submissoes/new')->with('erros', $errors)->withInput();
+
+        var_dump($this->request);
     }
 
     public function cancelUploadResult($id = null)
     {
-        //Iniciando conexao e enviadno atualização
-        // Tenta se conectar ao servidor MySQL
-        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
-        // Tenta se conectar a um banco de dados MySQL
-        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
+        $acompanhamento = new AcompanhamentoModel();
 
-        $id_acompanhamento = mysqli_real_escape_string($conexao, $id);
-        // Validação do usuário/senha digitados
-        $sql = "SELECT * FROM `acompanhamentos` WHERE (`id` = '".$id_acompanhamento."');";
-        $query = mysqli_query($conexao, $sql);
-        $row = mysqli_fetch_assoc($query);
-        if(file_exists("./resultados/".$row['pathResultado'].".pdf")){
-            $sqlUpdate = "UPDATE `acompanhamentos` SET `pathResultado` = NULL, `data_analise` = NULL, `status` = 0 WHERE (`id` = $id);";
-            unlink("./resultados/".$row['pathResultado'].".pdf");
-            mysqli_query($conexao, $sqlUpdate);
-            header("Location: /dashboard"); exit;
-        }else{
-            return "Não foi possível encontrar o arquivo do resultado no servidor.";
+        $d = $acompanhamento->where('id', $id)->first();
+        if(unlink($d['pathResultado'])){
+            $dataAcompanhamento = [
+                'data_analise' => "0000-00-00 00:00:00",
+                'status' => 0,
+                'pendente' => "1",
+                'id_usuario_analise' => null,
+                'pathResultado' => null,
+            ];
+            if($acompanhamento->update($id, $dataAcompanhamento))
+                return redirect()->to('dashboard');
         }
+        
     }
 
     public function cancelUploadArquive($id = null)
     {
-        //Iniciando conexao e enviadno atualização
-        // Tenta se conectar ao servidor MySQL
-        $conexao = mysqli_connect("localhost", "root", "", "dbtradunilab") or trigger_error(mysqli_error($conexao));
-        // Tenta se conectar a um banco de dados MySQL
-        mysqli_select_db($conexao, 'dbtradunilab') or trigger_error(mysqli_error($conexao));
+        $acompanhamento = new AcompanhamentoModel();
 
-        $id_acompanhamento = mysqli_real_escape_string($conexao, $id);
-        // Validação do usuário/senha digitados
-        $sql = "SELECT * FROM `acompanhamentos` WHERE (`id` = '".$id_acompanhamento."');";
-        $query = mysqli_query($conexao, $sql);
-        $row = mysqli_fetch_assoc($query);
-        if(file_exists("./arquivoParaAnalise/".$row['pathArquivo'].".pdf")){
-            $sqlDelete = "DELETE FROM  `acompanhamentos` WHERE (`id` = $id);";
-            unlink("./arquivoParaAnalise/".$row['pathArquivo'].".pdf");
-            mysqli_query($conexao, $sqlDelete);
-            header("Location: /dashboard"); exit;
-        }else{
-            return "Não foi possível encontrar o arquivo do resultado no servidor.";
+        $d = $acompanhamento->where('id', $id)->first();
+        if(unlink($d['pathArquivo'])){
+            if($acompanhamento->delete($id))
+                return redirect()->to('dashboard');
         }
     }
 
